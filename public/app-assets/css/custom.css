@@ -1,0 +1,191 @@
+/*================================================================================
+	Item Name: Robust - Responsive Admin Theme
+	Version: 1.0
+	Author: PIXINVENT
+	Author URL: http://www.themeforest.net/user/pixinvent
+================================================================================
+
+NOTE:
+------
+PLACE HERE YOUR OWN SCSS CODES AND IF NEEDED, OVERRIDE THE STYLES FROM THE OTHER STYLESHEETS.
+WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BETTER LIKE THIS.  */
+@import "global.css";
+
+/**** Content Loader **/
+#content-loader .loader-container {
+    width: 180px;
+    height: 180px;
+    margin: 0 auto;
+    margin-top: 8%;
+    background: url("../images/logo/smb-logo.png");
+    background-position: center center;
+    background-size: 60px 60px;
+    background-repeat: no-repeat;
+}
+
+#content-loader .loader-container .loader {
+    border: 16px solid #e3e3e3;
+    border-radius: 50%;
+    border-top: 16px solid #007bff;
+    width: 180px;
+    height: 180px;
+    margin: 0 auto;
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/**** Data Table ****/
+
+.dataTables_wrapper {
+    margin: 0;
+    padding: 0;
+}
+
+.dataTables_length {
+    width: 35%;
+    float: left
+}
+
+.dataTables_filter {
+    float: right;
+    margin-bottom: .25rem;
+
+}
+
+.dataTables_info {
+    float: left;
+    width: 35%;
+}
+
+.dataTables_paginate {
+    float: right;
+    width: 35%;
+}
+
+.data-tables {
+    margin: 0;
+    color: #222429 !important;
+    font-size: 0.75rem !important;
+}
+
+.data-tables thead th, .data-tables tfoot td, .data-tables tfoot th {
+    background: rgba(52, 58, 64, 0.25) !important;
+    text-transform: uppercase;
+}
+
+.data-tables td, .data-tables th {
+    padding: 0.4rem 0.35rem !important;
+    vertical-align: middle !important;
+}
+
+.datatable-buttons .dataTables_wrapper .dt-buttons {
+    float: left;
+    width: 30%;
+    text-align: center;
+}
+
+.datatable-buttons .dataTables_wrapper .dt-buttons .btn-group {
+    text-align: center;
+}
+
+.datatable-buttons .dataTables_wrapper .dt-buttons {
+    float: left;
+    width: 30%;
+    text-align: center;
+}
+
+.datatable-buttons .dataTables_wrapper .dt-buttons .btn-group {
+    text-align: center;
+}
+
+.table-actions {
+    width: 2% !important;
+}
+
+.table-actions button {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    padding-left: 3px !important;
+    padding-right: 3px !important;
+    color: #555;
+    background: transparent !important;
+    font-size: .9rem !important;
+    margin: 0 !important;
+    text-align: center !important;
+    border: 0;
+    cursor: pointer;
+    outline: none;
+}
+
+.table-actions button:hover {
+    color: #dc3545;
+}
+
+.fa-angle-double-left:before {
+    content: "\e828";
+}
+
+.table-actions button .feather {
+    width: 16px;
+    height: 16px;
+    text-align: center;
+    position: relative;
+    margin: 0 !important;
+    line-height: inherit !important;
+}
+
+/***
+Forms styling
+ */
+
+.form-control, .select2-selection, .note-editor, select.form-control:not([size]):not([multiple]) {
+    outline: none !important;
+    border-radius: 0;
+}
+
+.form-group {
+    margin-bottom: 0.5rem !important;
+}
+
+.invalid-feedback {
+    display: none;
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 80%;
+    color: #dc3545;
+}
+
+.required {
+    color: #dc3545;
+}
+
+.footer {
+    padding: 1rem;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.bg-transparent {
+    background: transparent !important;
+}

@@ -1,0 +1,107 @@
+{
+  "position": 10,
+  "label": "Locations",
+  "icon": "feather icon-map-pin",
+  "submenus": {
+    "categories": {
+      "sub_label": "Categories",
+      "icon": "fal fa-folder",
+      "roles": {
+        "create_store_category": {
+          "icon": "fal fa-plus",
+          "label": "Create Category"
+        },
+        "edit_store_category": {
+          "icon": "fal fa-pen",
+          "label": "Edit Record"
+        },
+        "delete_store_category": {
+          "icon": "fal fa-trash-alt",
+          "label": "Delete Record"
+        }
+      },
+      "status": true
+    },
+    "location": {
+      "sub_label": "Create Location",
+      "icon": "fal fa-plus",
+      "roles": {},
+      "status": true
+    },
+    "locations": {
+      "sub_label": "Locations List",
+      "icon": "fal fa-store-alt",
+      "roles": {
+        "edit_location": {
+          "icon": "fal fa-pen",
+          "label": "Edit Record"
+        },
+        "delete_location": {
+          "icon": "fal fa-trash-alt",
+          "label": "Delete Record"
+        }
+      },
+      "status": true
+    },
+    "transfer": {
+      "sub_label": "Create Transfer",
+      "icon": "fal fa-plus-square",
+      "roles": {},
+      "status": true
+    },
+    "transfers": {
+      "sub_label": "Transfer Vouchers",
+      "icon": "fal fa-exchange",
+      "roles": {
+        "approve_transfer": {
+          "icon": "fal fa-check-square",
+          "label": "Approve Record"
+        },
+        "post_transfer": {
+          "icon": "fal fa-arrow-to-right",
+          "label": "Post Transfer"
+        },
+        "edit_transfer": {
+          "icon": "fal fa-pen",
+          "label": "Edit Record"
+        },
+        "delete_transfer": {
+          "icon": "fal fa-trash-alt",
+          "label": "Delete Record"
+        }
+      },
+      "status": true
+    },
+    "transfer-payments": {
+      "sub_label": "Transfer Payments",
+      "icon": "fal fa-money-bill",
+      "roles": {
+        "pay_transfer": {
+          "icon": "fal fa-plus",
+          "label": "Create Payment"
+        },
+        "delete_transfer_payment": {
+          "icon": "fal fa-trash-alt",
+          "label": "Delete Record"
+        }
+      },
+      "status": true
+    },
+    "location-report": {
+      "sub_label": "Location Reports",
+      "icon": "fal fa-chart-pie",
+      "roles": {},
+      "status": true
+    }
+  },
+  "status": true,
+  "inc": [
+    "categories",
+    "location",
+    "locations",
+    "transfer",
+    "transfers",
+    "transfer-payments",
+    "location-report"
+  ]
+}

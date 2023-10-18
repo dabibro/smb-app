@@ -1,0 +1,27 @@
+<!-- Delete Warning Modal -->
+<div class="modal fade" id="DeleteRequest" tabindex="-1" role="dialog" aria-labelledby="DeleteRequestLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content card">
+            <div class="modal-header card-header">
+                <h5 class="modal-title card-title" id="DeleteRequestLabel"><i
+                        class="feather icon-alert-triangle mr-2"></i> Warning</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body card-body">
+                <h3 class="text-center text-danger fa-3x"><i class="feather icon-alert-circle"></i></h3>
+                <div id="message" class="text-center h6"></div>
+                <form action="" id="DeleteForm">
+                    <input type="hidden" name="pk" id="pk">
+                    <input type="hidden" name="callback" id="callback">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                <button form="DeleteForm" class="btn btn-primary" id="ConfirmDelete">Accept</button>
+            </div>
+        </div>
+    </div>
+</div>

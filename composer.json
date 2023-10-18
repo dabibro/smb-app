@@ -1,0 +1,17 @@
+{
+  "name": "smb-solution/smb_commerce",
+  "description": "SMB solutions online store package",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "SMB Solutions",
+      "email": "contact@smb.ng"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "App\\": "src/"
+    }
+  }
+}

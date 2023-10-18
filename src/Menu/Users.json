@@ -1,0 +1,73 @@
+{
+  "position": 1,
+  "label": "Users",
+  "icon": "feather icon-user",
+  "submenus": {
+    "create": {
+      "sub_label": "Create",
+      "icon": "feather icon-plus",
+      "roles": {},
+      "status": true
+    },
+    "list": {
+      "sub_label": "User List ",
+      "icon": "feather icon-users",
+      "roles": {
+        "permission": {
+          "icon": "fal fa-cogs",
+          "label": "Permission"
+        },
+        "status": {
+          "icon": "fal fa-toggle-on",
+          "label": "Status"
+        },
+        "edit": {
+          "icon": "fal fa-pen",
+          "label": "Edit"
+        },
+        "delete": {
+          "icon": "fal fa-trash-alt",
+          "label": "Delete"
+        }
+      },
+      "status": true
+    },
+    "group": {
+      "sub_label": "Groups",
+      "icon": "feather icon-folder",
+      "roles": {
+        "permission": {
+          "icon": "fal fa-cogs",
+          "label": "Permission"
+        },
+        "edit": {
+          "icon": "fal fa-pen",
+          "label": "Edit"
+        },
+        "delete": {
+          "icon": "fal fa-trash-alt",
+          "label": "Delete"
+        }
+      },
+      "status": true
+    },
+    "log": {
+      "sub_label": "Activity Log",
+      "icon": "feather icon-info",
+      "roles": {
+        "delete": {
+          "icon": "fal fa-trash-alt",
+          "label": "Delete"
+        }
+      },
+      "status": true
+    }
+  },
+  "status": true,
+  "inc": [
+    "create",
+    "list",
+    "group",
+    "log"
+  ]
+}

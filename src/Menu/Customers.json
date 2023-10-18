@@ -1,0 +1,98 @@
+{
+  "position": 2,
+  "label": "Customers",
+  "icon": "feather icon-users",
+  "submenus": {
+    "customer-group": {
+      "sub_label": "Customer Groups",
+      "icon": "fal fa-folder-open",
+      "roles": {
+        "create_customer_group": {
+          "icon": "fal fa-plus",
+          "label": "Create Group"
+        },
+        "edit_customer_group": {
+          "icon": "fal fa-pen",
+          "label": "Edit Record"
+        },
+        "delete_customer_group": {
+          "icon": "fal fa-trash-alt",
+          "label": "Delete Record"
+        }
+      },
+      "status": true
+    },
+    "customers-account": {
+      "sub_label": "Customers Account",
+      "icon": "fal fa-user-friends",
+      "roles": {
+        "create_customer": {
+          "icon": "fal fa-plus",
+          "label": "Create Account"
+        },
+        "edit_customer": {
+          "icon": "fal fa-pen",
+          "label": "Edit Record"
+        },
+        "delete_customer": {
+          "icon": "fal fa-trash-alt",
+          "label": "Delete Record"
+        }
+      },
+      "status": true
+    },
+    "purchase-invoices": {
+      "sub_label": "Customers Invoices",
+      "icon": "fal fa-receipt",
+      "roles": {
+        "delete_customer_invoice": {
+          "icon": "fal fa-trash-alt",
+          "label": "Delete Record"
+        }
+      },
+      "status": true
+    },
+    "customers-payment": {
+      "sub_label": "Customers Payments",
+      "icon": "fal fa-coins",
+      "roles": {
+        "create_payment": {
+          "icon": "fal fa-plus",
+          "label": "Receive Payment"
+        },
+        "print_payment": {
+          "icon": "fal fa-print",
+          "label": "Print Record"
+        },
+        "delete_payment": {
+          "icon": "fal fa-trash-alt",
+          "label": "Delete Record"
+        }
+      },
+      "status": true
+    },
+    "customers-clearance": {
+      "sub_label": "Customers Clearance",
+      "icon": "fal fa-check-double",
+      "roles": {
+        "customer_clearance": {
+          "icon": "fal fa-plus",
+          "label": "Clear Credit"
+        },
+        "delete_clearance": {
+          "icon": "fal fa-trash-alt",
+          "label": "Delete Record"
+        }
+      },
+      "status": true
+    }
+  },
+  "status": false,
+  "inc": [
+    "customer-group",
+    "customers-account",
+    "purchase-invoices",
+    "customers-payment",
+    "customers-clearance"
+  ]
+}
