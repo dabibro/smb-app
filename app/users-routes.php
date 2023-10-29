@@ -10,6 +10,9 @@
  * Users Routes
  * */
 
+use App\Controller\Users\Users;
+use App\Lib\Router;
+
 Router::get(DASHBOARD . '/users/group', function () {
     Users::UserGroupView();
 });
