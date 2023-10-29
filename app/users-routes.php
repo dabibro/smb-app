@@ -12,6 +12,8 @@
 
 use App\Controller\Users\Users;
 use App\Lib\Router;
+use App\Lib\Request;
+use App\Lib\Response;
 
 Router::get(DASHBOARD . '/users/group', function () {
     Users::UserGroupView();
@@ -50,6 +52,11 @@ Router::get(DASHBOARD . '/users/list/edit/([0-9]*)', function (Request $request,
 });
 Router::post(DASHBOARD . '/users/list/delete', function () {
     Users::DeleteUser();
+});
+
+
+Router::post(DASHBOARD . '/users/list/permission', function () {
+    Users::Permissions();
 });
 
 Router::get(DASHBOARD . '/users/log', function (Request $request) {

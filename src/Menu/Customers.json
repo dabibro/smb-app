@@ -3,8 +3,15 @@
   "label": "Customers",
   "icon": "feather icon-users",
   "submenus": {
-    "customer-group": {
-      "sub_label": "Customer Groups",
+    "create": {
+      "sub_label": "Create",
+      "icon": "fal fa-receipt",
+      "roles": {
+      },
+      "status": true
+    },
+    "group": {
+      "sub_label": "Groups",
       "icon": "fal fa-folder-open",
       "roles": {
         "create_customer_group": {
@@ -22,8 +29,8 @@
       },
       "status": true
     },
-    "customers-account": {
-      "sub_label": "Customers Account",
+    "list": {
+      "sub_label": "List",
       "icon": "fal fa-user-friends",
       "roles": {
         "create_customer": {
@@ -41,8 +48,8 @@
       },
       "status": true
     },
-    "purchase-invoices": {
-      "sub_label": "Customers Invoices",
+    "invoices": {
+      "sub_label": "Invoices",
       "icon": "fal fa-receipt",
       "roles": {
         "delete_customer_invoice": {
@@ -52,8 +59,8 @@
       },
       "status": true
     },
-    "customers-payment": {
-      "sub_label": "Customers Payments",
+    "payment": {
+      "sub_label": "Payments",
       "icon": "fal fa-coins",
       "roles": {
         "create_payment": {
@@ -71,8 +78,8 @@
       },
       "status": true
     },
-    "customers-clearance": {
-      "sub_label": "Customers Clearance",
+    "clearance": {
+      "sub_label": "Clearance",
       "icon": "fal fa-check-double",
       "roles": {
         "customer_clearance": {
@@ -87,12 +94,13 @@
       "status": true
     }
   },
-  "status": false,
+  "status": true,
   "inc": [
-    "customer-group",
-    "customers-account",
-    "purchase-invoices",
-    "customers-payment",
-    "customers-clearance"
+    "create",
+    "group",
+    "list",
+    "invoices",
+    "payment",
+    "clearance"
   ]
 }

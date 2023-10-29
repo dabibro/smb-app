@@ -16,6 +16,7 @@ class DBTables
     protected $users_group;
     protected $users;
     protected $users_sessions;
+    protected $customers;
 
     protected $logger;
 
@@ -27,6 +28,7 @@ class DBTables
         $this->users = 'users';
         $this->logger = 'logger';
         $this->users_sessions = 'users_sessions';
+        $this->customers = 'customers';
 
     }
 }
