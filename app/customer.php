@@ -12,31 +12,45 @@
 
 use App\Controller\Customers\Customers;
 use App\Lib\Router;
+use App\Lib\Request;
+use App\Lib\Response;
 
 Router::get(DASHBOARD . '/customers/group', function () {
-    Customers::UserGroupView();
+    Customers::CustomerGroupView();
 });
+
 Router::post(DASHBOARD . '/customers/group', function () {
-    Users::PostUserGroup();
+    Customers::PostCustomerGroup();
 });
 
-Router::get(DASHBOARD . '/users/group/edit/([0-9]*)', function (Request $request, Response $response) {
-    Users::UserGroupView($request->params[0]);
+Router::get(DASHBOARD . '/customers/group/edit/([0-9]*)', function (Request $request, Response $response) {
+    Customers::CustomerGroupView($request->params[0]);
 });
+
 Router::post(DASHBOARD . '/customers/group/delete', function () {
-    Users::DeleteGroup();
+    Customers::DeleteGroup();
 });
 
+
+Router::get(DASHBOARD . '/customers/list', function () {
+    Customers::CustomersView();
+});
 
 Router::get(DASHBOARD . '/customers/create', function () {
     Customers::CreateCustomersView();
 });
+
 Router::post(DASHBOARD . '/customers/create', function () {
-    Users::PostUser();
+    Customers::PostCustomer();
 });
-Router::get(DASHBOARD . '/customers/list', function () {
-    Users::UsersView();
-});
+
+
+
+
+
+
+
+
 
 Router::get(DASHBOARD . '/customers/list/edit/([0-9]*)', function (Request $request, Response $response) {
     Users::CreateUserView($request->params[0]);

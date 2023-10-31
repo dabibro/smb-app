@@ -24,35 +24,36 @@ abstract class Customers extends Command
         parent::__construct();
     }
 
-    static function UserGroupView($edit = "")
+    static function CustomerGroupView($edit = "")
     {
         $reference = strtoupper(DataHandlers::generate_random_string(6));
         $arg = [
             'datatable' => 1,
             'locations' => Locations::Locations(),
-            'groups' => self::UserGroupList(),
+            'groups' => self::CustomerGroupList(),
             'reference' => $reference
         ];
         if (!empty($edit)) {
-            $edit = self::UserGroupList(['id' => $edit])[0];
+            $edit = self::CustomerGroupList(['id' => $edit])[0];
             if (!empty($edit)) $edit = DataHandlers::convertObj($edit);
             $arg['reference'] = $edit->reference;
             $arg['edit'] = $edit;
         }
 
-        Rendering::RenderContent(ADMIN_VIEWS, 'Users/group', $arg, DASHBOARD . '/users/group');
+        Rendering::RenderContent(ADMIN_VIEWS, 'Customers/group', $arg, DASHBOARD . '/customers/group');
         exit();
     }
 
-    static function PostUserGroup()
+    static function PostCustomerGroup()
     {
+        echo  'from here';
         $cmd = new Command();
         $auth = new Auth();
 
         extract($_POST);
 
         $params = [
-            'tbl_scheme' => $cmd->users_group,
+            'tbl_scheme' => $cmd->customers_group,
             'created_by' => $auth->AuthName(),
 
         ];
@@ -60,8 +61,8 @@ abstract class Customers extends Command
         unset($params['SetPermission']);
         unset($params['Path']);
         if (empty($params['pk'])) {
-            @$check = self::UserGroupList(['description' => $description, 'location' => $location]);
-            if (!empty($check)) die('<div class="alert alert-danger">Group record with description exist!</div>');
+            @$check = self::CustomerGroupList(['name' => $name, 'location' => $location]);
+            if (!empty($check)) die('<div class="alert alert-danger">Group record with name exist!</div>');
             $submit = $cmd->createRecord($params);
             $action = "Create";
         } else {
@@ -73,7 +74,7 @@ abstract class Customers extends Command
             'class_name' => Client::ClassName(self::class),
             'function_name' => Client::MethodNameExplode(__METHOD__),
             'action' => $action,
-            'description' => $action . 'd ' . $description . ' user group record'
+            'description' => $action . 'd ' . $name . ' customer group record'
         ]);
         echo '<div class="alert alert-success"> Record successfully saved!</div>';
         if (!empty($_POST['SetPermission'])) {
@@ -85,21 +86,7 @@ abstract class Customers extends Command
         }
     }
 
-    static function UserGroupPermission($id = "")
-    {
-        $cmd = new Command();
-        $info = self::UserGroupList(['id' => $id])[0];
-        $arg = [
-            'type' => 'group',
-            'info' => $info,
-            'permission' => json_decode(htmlspecialchars_decode($info['permission']), true),
-            'pkField' => 'id',
-            'pk' => $id,
-            'tbl_scheme' => $cmd->users_group,
-        ];
-        Rendering::RenderContent(ADMIN_VIEWS, 'Users/permission', $arg, DASHBOARD . '/users/group');
-        exit();
-    }
+
 
     static function DeleteGroup()
     {
@@ -109,7 +96,7 @@ abstract class Customers extends Command
 
         $deleteRequest = $cmd->updateRecord(
             [
-                'tbl_scheme' => $cmd->users_group,
+                'tbl_scheme' => $cmd->customers_group,
                 'pkField' => 'id',
                 'delete_status' => 1,
                 'pk' => $pk
@@ -132,7 +119,7 @@ abstract class Customers extends Command
     {
         $arg = [
             'locations' => Locations::Locations(),
-            'groups' => self::UserGroupList(),
+            'groups' => self::CustomerGroupList(),
             'types' => self::AccountTypes(),
         ];
         if (!empty($edit)) {
@@ -140,11 +127,11 @@ abstract class Customers extends Command
             if (!empty($edit)) $edit = DataHandlers::convertObj($edit);
             $arg['edit'] = $edit;
         }
-        Rendering::RenderContent(ADMIN_VIEWS, 'Users/create', $arg, DASHBOARD . '/users/create');
+        Rendering::RenderContent(ADMIN_VIEWS, 'Customers/create', $arg, DASHBOARD . '/customers/create');
         exit();
     }
 
-    static function PostUser()
+    static function PostCustomer()
     {
         $cmd = new Command();
         $auth = new Auth();
@@ -152,17 +139,14 @@ abstract class Customers extends Command
         extract($_POST);
 
         $params = [
-            'tbl_scheme' => $cmd->users,
+            'tbl_scheme' => $cmd->customers,
             'created_by' => $auth->AuthName(),
 
         ];
 
-        if (!empty($password)) $_POST['password'] = password_hash($password, PASSWORD_DEFAULT);
-
         $params += $_POST;
 
-        unset($params['SetPermission']);
-        unset($params['Path']);
+
         if (!empty($u_group)) {
             $group_permission = self::UserGroupList(['reference' => $u_group])[0]['permission'];
             if (!empty($group_permission)) {
@@ -170,15 +154,16 @@ abstract class Customers extends Command
                 $params['permission'] = $group_permission;
             }
         }
-        if (empty($params['pk'])) {
+        if (!empty($params['pk'])) {
             @$check = self::User(['username' => $username]);
             if (!empty($check)) die('<div class="alert alert-danger">User record with username exist!</div>');
             $submit = $cmd->createRecord($params);
             $action = "Create";
         } else {
-            $submit = $cmd->updateRecord($params);
-            $_POST['Path'] = DASHBOARD . '/users/list/edit/' . $pk;
-            $action = "Update";
+
+            $submit = $cmd->createRecord($params);
+            $action = "Create";
+            echo "in hear";
         }
 
         if ($submit['response'] !== '200') die(Responses::displayResponse($submit));
@@ -198,7 +183,7 @@ abstract class Customers extends Command
         }
     }
 
-    static function UsersView()
+    static function CustomersView()
     {
         $arg = [
             'datatable' => 1,
@@ -296,7 +281,7 @@ abstract class Customers extends Command
         }
     }
 
-    static function UserGroupList($params = []): array
+    static function CustomerGroupList($params = []): array
     {
         $cmd = new Command();
         $resp = [];
@@ -306,19 +291,19 @@ abstract class Customers extends Command
         if (!empty($params)) $condition += $params;
         $data = $cmd->getRecord(
             [
-                'tbl_scheme' => $cmd->users_group,
+                'tbl_scheme' => $cmd->customers_group,
                 'condition' => $condition,
                 'order' => 'description'
             ]
-        )['dataArray'];
-        if (!empty($data)) $resp = $data;
+        );
+        if (!empty($data['dataArray'])) $resp = $data['dataArray'];
         return $resp;
 
     }
 
     static function UserGroupName($reference = "")
     {
-        if (!empty($reference)) return self::UserGroupList(['reference' => $reference])[0]['description'];
+        if (!empty($reference)) return self::CustomerGroupList(['reference' => $reference])[0]['description'];
     }
 
     static function User($params = []): array
@@ -331,9 +316,9 @@ abstract class Customers extends Command
         if (!empty($params)) $condition += $params;
         $data = $cmd->getRecord(
             [
-                'tbl_scheme' => $cmd->users,
+                'tbl_scheme' => $cmd->customers,
                 'condition' => $condition,
-                'order' => 'first_name ASC'
+                'order' => 'customer_name ASC'
             ]
         )['dataArray'];
         if (!empty($data)) $resp = $data;
