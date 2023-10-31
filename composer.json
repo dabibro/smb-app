@@ -9,6 +9,9 @@
       "email": "contact@smb.ng"
     }
   ],
+  "require": {
+    "semiorbit/guid": "*"
+  },
   "autoload": {
     "psr-4": {
       "App\\": "src/"
