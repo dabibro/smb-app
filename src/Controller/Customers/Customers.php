@@ -15,6 +15,7 @@ use App\Handlers\Rendering;
 use App\Handlers\Responses;
 use App\SMB\Auth;
 use App\SMB\Client;
+use App\Lib\Router;
 
 abstract class Customers extends Command
 {
@@ -145,25 +146,16 @@ abstract class Customers extends Command
         ];
 
         $params += $_POST;
-
-
-        if (!empty($u_group)) {
-            $group_permission = self::UserGroupList(['reference' => $u_group])[0]['permission'];
-            if (!empty($group_permission)) {
-                $group_permission = htmlspecialchars_decode($group_permission);
-                $params['permission'] = $group_permission;
-            }
-        }
-        if (!empty($params['pk'])) {
+        unset($params['Path']);
+        if (empty($params['pk'])) {
             @$check = self::User(['username' => $username]);
-            if (!empty($check)) die('<div class="alert alert-danger">User record with username exist!</div>');
+            if (!empty($check)) die('<div class="alert alert-danger">Customer already exist!</div>');
             $submit = $cmd->createRecord($params);
             $action = "Create";
         } else {
-
-            $submit = $cmd->createRecord($params);
-            $action = "Create";
-            echo "in hear";
+            $submit = $cmd->updateRecord($params);
+            $_POST['Path'] = DASHBOARD . '/users/list/edit/' . $pk;
+            $action = "Update";
         }
 
         if ($submit['response'] !== '200') die(Responses::displayResponse($submit));
@@ -171,16 +163,15 @@ abstract class Customers extends Command
             'class_name' => Client::ClassName(self::class),
             'function_name' => Client::MethodNameExplode(__METHOD__),
             'action' => $action,
-            'description' => $action . 'd ' . $username . ' user record'
+            'description' => $action . 'd ' . $first_name .$last_name . ' customer record'
         ]);
         echo '<div class="alert alert-success"> Record successfully saved!</div>';
-        if (!empty($_POST['SetPermission'])) {
-            $id = self::User(['username' => $username])[0]['id'];
-            $link = DASHBOARD . '/users/list/permission/' . $id;
-            die('<script>location.replace("' . $link . '")</script>');
-        } else {
-            die('<script>location.replace("' . $_POST['Path'] . '")</script>');
-        }
+
+        Router::get(DASHBOARD . '/customers/list', function () {
+            Customers::CustomersView();
+        });
+
+
     }
 
     static function CustomersView()
@@ -188,11 +179,11 @@ abstract class Customers extends Command
         $arg = [
             'datatable' => 1,
             'locations' => Locations::Locations(),
-            'groups' => self::UserGroupList(),
+            'groups' => self::CustomerGroupList(),
             'users' => self::User(),
         ];
 
-        Rendering::RenderContent(ADMIN_VIEWS, 'Users/list', $arg);
+        Rendering::RenderContent(ADMIN_VIEWS, 'Customers/list', $arg);
         exit();
     }
 
@@ -212,7 +203,7 @@ abstract class Customers extends Command
         exit();
     }
 
-    static function DeleteUser()
+    static function DeleteCustomer()
     {
         $cmd = new Command();
 
@@ -220,7 +211,7 @@ abstract class Customers extends Command
 
         $deleteRequest = $cmd->updateRecord(
             [
-                'tbl_scheme' => $cmd->users,
+                'tbl_scheme' => $cmd->customers,
                 'pkField' => 'id',
                 'delete_status' => 1,
                 'pk' => $pk
@@ -301,7 +292,7 @@ abstract class Customers extends Command
 
     }
 
-    static function UserGroupName($reference = "")
+    static function CustomerGroupName($reference = "")
     {
         if (!empty($reference)) return self::CustomerGroupList(['reference' => $reference])[0]['description'];
     }
@@ -318,10 +309,10 @@ abstract class Customers extends Command
             [
                 'tbl_scheme' => $cmd->customers,
                 'condition' => $condition,
-                'order' => 'customer_name ASC'
+                'order' => 'first_name ASC'
             ]
-        )['dataArray'];
-        if (!empty($data)) $resp = $data;
+        );
+        if (!empty($data['dataArray'])) $resp = $data['dataArray'];
         return $resp;
     }
 

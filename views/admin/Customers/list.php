@@ -2,6 +2,7 @@
 
 use App\Controller\Locations\Locations;
 use App\Controller\Users\Users;
+use App\Controller\Customers\Customers;
 
 //use App\Handlers\DataHandlers;
 
@@ -10,7 +11,7 @@ use App\Controller\Users\Users;
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h5><i class="feather icon-users"></i> User List</h5>
+                <h5><i class="feather icon-users"></i> Customer List</h5>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -19,12 +20,14 @@ use App\Controller\Users\Users;
                         <thead>
                         <tr>
                             <th>Full Name</th>
+                            <th>Group</th>
                             <th>Location</th>
-                            <th>Username</th>
-                            <th>User Group</th>
-                            <th>Account Type</th>
-                            <th>Last Login</th>
-                            <th></th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Bank</th>
+                            <th>Account No:</th>
+                            <th>Credit Limit</th>
+                            <th>Actions</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -34,25 +37,21 @@ use App\Controller\Users\Users;
                             foreach ($users as $user) {
                                 extract($user);
                                 $index++;
-                                $location = Locations::LocationName($location);
+                                $location = Locations::LocationName($customer_location);
                                 if (empty($location)) $location = '-';
-                                $group = Users::UserGroupName($u_group);
+                                $group = Customers::CustomerGroupName($customer_group);
                                 if (empty($group)) $group = '-';
                                 ?>
                                 <tr>
                                     <td><?php echo trim($first_name . ' ' . $last_name); ?></td>
-                                    <td><?php echo $location; ?></td>
-                                    <td><?php echo $username; ?></td>
                                     <td><?php echo $group; ?></td>
-                                    <td><?php echo Users::AccountTypes($type, 1); ?></td>
-                                    <td><?php echo $last_login; ?></td>
+                                    <td><?php echo $location; ?></td>
+                                    <td><?php echo $email_address; ?></td>
+                                    <td><?php echo $phone_number; ?></td>
+                                    <td><?php echo $bank_name; ?></td>
+                                    <td><?php echo $account_number; ?></td>
+                                    <td><?php echo $credit_limit; ?></td>
                                     <td class="table-actions">
-                                        <button type="button" class="btn"
-                                                onclick="location.replace('<?php echo $path . '/permission/' . ($id); ?>');"
-                                                title="Permissions" data-toggle="tooltip">
-                                            <i class="feather icon-sliders"></i>
-                                        </button>
-                                        <button type="button"><i class="feather icon-toggle-left"></i></button>
                                         <button type="button" class="btn"
                                                 title="Edit Record" data-toggle="tooltip"
                                                 onClick="location.replace('<?php echo $path . '/edit/' . ($id); ?>')">

@@ -31,11 +31,6 @@ Router::post(DASHBOARD . '/customers/group/delete', function () {
     Customers::DeleteGroup();
 });
 
-
-Router::get(DASHBOARD . '/customers/list', function () {
-    Customers::CustomersView();
-});
-
 Router::get(DASHBOARD . '/customers/create', function () {
     Customers::CreateCustomersView();
 });
@@ -44,18 +39,16 @@ Router::post(DASHBOARD . '/customers/create', function () {
     Customers::PostCustomer();
 });
 
-
-
-
-
-
-
-
+Router::get(DASHBOARD . '/customers/list', function () {
+    Customers::CustomersView();
+});
 
 Router::get(DASHBOARD . '/customers/list/edit/([0-9]*)', function (Request $request, Response $response) {
-    Users::CreateUserView($request->params[0]);
+    Customers::CreateCustomersView($request->params[0]);
 });
+
 Router::post(DASHBOARD . '/customers/list/delete', function () {
-    Users::DeleteUser();
+    Customers::DeleteCustomer();
 });
+
 
