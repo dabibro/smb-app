@@ -88,9 +88,10 @@ class Auth extends Command
             $update_user = $this->updateRecord($update_params);
             if ($update_user['response'] === '200') {
 
-                $session = $this->SetAuth($this->username);
+                $session = $this->SetAuth(['username' => $this->username, 'companyId' => $check_username[0]['companyId']]);
 
                 if (empty($session)) die('<div class="alert alert-danger py-2 px-3 small">* Error: could not login account, try again!</div>');
+
                 Client::logger([
                     'user' => $username,
                     'full_name' => Users::UserName($username),
@@ -126,13 +127,15 @@ class Auth extends Command
         return trim($Auth->first_name . ' ' . $Auth->last_name);
     }
 
-    public function SetAuth($params = "")
+    public function SetAuth($params = [])
     {
         $response = 0;
         if (!empty($params)) {
-            $resp = setcookie($this->auth_cookie, $params, $this->session_expiry);
+            extract($params);
+            $resp = setcookie($this->auth_cookie, $username, $this->session_expiry);
             if ($resp) {
                 $response = 1;
+                $_SESSION[$this->companyId]= $companyId;
             }
         }
         return $response;
@@ -162,6 +165,7 @@ class Auth extends Command
                 ]);
                 $_COOKIE[$this->auth_cookie] = "";
                 setcookie($this->auth_cookie, '', time() - 3600);
+                $_SESSION[$this->companyId] = "";
             }
             die('<script>location.replace("' . ADMIN_LOGIN . '")</script>');
         }

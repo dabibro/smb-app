@@ -11,6 +11,7 @@ namespace App\DB;
 
 class DBTables
 {
+    protected $companyId;
     protected $config;
     protected $locations;
     protected $users_group;
@@ -31,6 +32,7 @@ class DBTables
         $this->users_sessions = 'users_sessions';
         $this->customers = 'customers';
         $this->customers_group = 'customers_group';
+        $this->companyId = 'companyId';
 
     }
 }

@@ -113,6 +113,14 @@ use App\Handlers\DataHandlers;
                                         permission</label>
                                 </div>
                             </div>
+                            <div class="form-group mb-0 pt-lg-4">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" name="AddNew"
+                                           id="AddNew">
+                                    <label class="custom-control-label pointer" for="AddNew">
+                                        Add Another User</label>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-md-6">
                             <label for="" class="small w-100 text-left">Default password: 12345678</label>
@@ -125,7 +133,7 @@ use App\Handlers\DataHandlers;
                             </button>
                         </div>
                     </div>
-                    <input type="hidden" name="Path" value="<?php echo $path; ?>">
+                    <input type="hidden" name="Path" value="<?php echo DASHBOARD.'users/list'; ?>">
                     <hr>
                     <div id="form-response"></div>
                     <?php if (!empty($edit->id)) { ?>

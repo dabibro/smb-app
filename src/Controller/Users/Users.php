@@ -19,6 +19,7 @@ use App\SMB\Client;
 abstract class Users extends Command
 {
 
+
     public function __construct()
     {
         parent::__construct();
@@ -163,6 +164,7 @@ abstract class Users extends Command
 
         unset($params['SetPermission']);
         unset($params['Path']);
+        unset($params['AddNew']);
         if (!empty($u_group)) {
             $group_permission = self::UserGroupList(['reference' => $u_group])[0]['permission'];
             if (!empty($group_permission)) {
@@ -173,6 +175,7 @@ abstract class Users extends Command
         if (empty($params['pk'])) {
             @$check = self::User(['username' => $username]);
             if (!empty($check)) die('<div class="alert alert-danger">User record with username exist!</div>');
+            $params['companyId'] = $_SESSION[$cmd->companyId];
             $submit = $cmd->createRecord($params);
             $action = "Create";
         } else {
@@ -194,6 +197,9 @@ abstract class Users extends Command
             $link = DASHBOARD . '/users/list/permission/' . $id;
             die('<script>location.replace("' . $link . '")</script>');
         } else {
+            if(!empty($AddNew)){
+                die('<script>location.reload()</script>');
+            }
             die('<script>location.replace("' . $_POST['Path'] . '")</script>');
         }
     }
