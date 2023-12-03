@@ -15,27 +15,51 @@ abstract class Locations extends Command
 {
 
 
+    /**
+     * @param array $params
+     * @return array
+     */
     static function Locations($params = []): array
     {
         $cmd = new Command();
         $resp = [];
         $condition = [
-            'delete_status' => 0
+            'delete_status' => 0,
+            'companyId' => $_SESSION[$cmd->companyId]
+
         ];
         if (!empty($params)) $condition += $params;
+        // $data = $cmd->getRecord(
+        //     [
+        //         'tbl_scheme' => $cmd->locations,
+        //         'condition' => $condition,
+        //         'order' => 'location_name ASC'
+        //     ]
+        // )['dataArray'];
+        
+        // if (!empty($data)) $resp = $data;
+        // return $resp;
         $data = $cmd->getRecord(
             [
                 'tbl_scheme' => $cmd->locations,
                 'condition' => $condition,
                 'order' => 'location_name ASC'
             ]
-        )['dataArray'];
-        if (!empty($data)) $resp = $data;
+        );
+        
+        if (isset($data['dataArray'])) {
+            $resp = $data['dataArray'];
+        } else {
+            $resp = []; 
+        }
+        
         return $resp;
+        
     }
 
     static function LocationName($reference = "")
     {
-        if (!empty($reference)) return self::Locations(['reference' => $reference])[0]['location_name'];
+        $result = self::Locations(['reference' => $reference]);
+        return $result[0]['location_name'] ?? "N/A";
     }
 }

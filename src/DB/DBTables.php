@@ -19,6 +19,8 @@ class DBTables
     protected $users_sessions;
     protected $customers;
     protected $customers_group;
+    protected $suppliers;
+    protected $suppliers_group;
 
     protected $logger;
 
@@ -33,6 +35,8 @@ class DBTables
         $this->customers = 'customers';
         $this->customers_group = 'customers_group';
         $this->companyId = 'companyId';
+        $this->suppliers = 'suppliers';
+        $this->suppliers_group = 'suppliers_group';
 
     }
 }

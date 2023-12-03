@@ -1,0 +1,58 @@
+{
+    "position": 3,
+    "label": "Suppliers",
+    "icon": "feather icon-users",
+    "submenus": {
+      "create": {
+        "sub_label": "Create",
+        "icon": "fal fa-receipt",
+        "roles": {
+        },
+        "status": true
+      },
+      "group": {
+        "sub_label": "Groups",
+        "icon": "fal fa-folder-open",
+        "roles": {
+          "create_customer_group": {
+            "icon": "fal fa-plus",
+            "label": "Create Group"
+          },
+          "edit_customer_group": {
+            "icon": "fal fa-pen",
+            "label": "Edit Record"
+          },
+          "delete_customer_group": {
+            "icon": "fal fa-trash-alt",
+            "label": "Delete Record"
+          }
+        },
+        "status": true
+      },
+      "list": {
+        "sub_label": "List",
+        "icon": "fal fa-user-friends",
+        "roles": {
+          "create_customer": {
+            "icon": "fal fa-plus",
+            "label": "Create Account"
+          },
+          "edit_customer": {
+            "icon": "fal fa-pen",
+            "label": "Edit Record"
+          },
+          "delete_customer": {
+            "icon": "fal fa-trash-alt",
+            "label": "Delete Record"
+          }
+        },
+        "status": true
+      }
+    },
+    "status": true,
+    "inc": [
+      "create",
+      "group",
+      "list"
+    ]
+  }

@@ -7,39 +7,21 @@ use App\Handlers\DataHandlers;
     <div class="col-lg-8">
         <div class="card">
             <div class="card-header">
-                <h5><i class="feather icon-user-plus"></i> Create Customer</h5>
+                <h5><i class="feather icon-user-plus"></i> Create Supplier</h5>
             </div>
             <div class="card-body">
                 <form class="app-form" action="<?php echo $path; ?>" method="post" id="user-group">
-                    <h5 class="mb-3">Personal Information</h5>
+                    <h5 class="mb-3">Information</h5>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
-                                <label for="first_name"><span class="required">*</span> First Name</label>
-                                <input type="text" name="first_name" id="first_name" placeholder="First Name"
-                                       class="form-control" value="<?php echo @$edit->first_name; ?>" required>
+                                <label for="supplier_name"><span class="required">*</span> Supplier Name</label>
+                                <input type="text" name="supplier_name" id="supplier_name" placeholder="Name"
+                                       class="form-control" value="<?php echo @$edit->supplier_name; ?>" required>
                                 <div class="invalid-feedback">* This is a required field.</div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="last_name"><span class="required">*</span> Last Name</label>
-                                <input type="text" name="last_name" id="last_name" placeholder="Last Name"
-                                       class="form-control" value="<?php echo @$edit->last_name; ?>"
-                                       required>
-                                <div class="invalid-feedback">* This is a required field.</div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="phone_number"> Phone Number
-                                    <small>(Optional)</small>
-                                </label>
-                                <input type="text" name="phone_number" id="phone_number" placeholder="Phone Number"
-                                       class="form-control" value="<?php echo @$edit->phone_number; ?>">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="email_address"> Email Address
                                     <small>(Optional)</small>
@@ -48,6 +30,16 @@ use App\Handlers\DataHandlers;
                                        class="form-control" value="<?php echo @$edit->email_address; ?>">
                             </div>
                         </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="phone_number"> Phone Number
+                                    <small>(Optional)</small>
+                                </label>
+                                <input type="text" name="phone_number" id="phone_number" placeholder="Phone Number"
+                                       class="form-control" value="<?php echo @$edit->phone_number; ?>">
+                            </div>
+                        </div>
+                        
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="bank_name"> Bank Name
@@ -59,6 +51,15 @@ use App\Handlers\DataHandlers;
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
+                                <label for="account_name"> Account Name
+                                    <small>(Optional)</small>
+                                </label>
+                                <input type="text" name="account_name" id="account_name" placeholder="Account Name"
+                                       class="form-control" value="<?php echo @$edit->account_name; ?>">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
                                 <label for="account_number"> Account Number
                                     <small>(Optional)</small>
                                 </label>
@@ -66,21 +67,12 @@ use App\Handlers\DataHandlers;
                                        class="form-control" value="<?php echo @$edit->account_number; ?>">
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="credit_limit"> Credit Limit
-                                    <small>(Optional)</small>
-                                </label>
-                                <input type="number" name="credit_limit" id="credit_limit"
-                                       class="form-control" value="<?php echo @$edit->account_number; ?>">
-                            </div>
-                        </div>
-                        <div class="col-md-12">
+                       <div class="col-md-12">
                             <div class="form-group">
                                 <label for="customer_address">Contact Address
                                     <small>(Optional)</small>
                                 </label>
-                                <textarea name="customer_address" class="form-control" id="customer_address" rows="3"
+                                <textarea name="address" class="form-control" id="address" rows="3"
                                           placeholder="Contact Address"
                                           autocomplete="off"><?php echo @$edit->address; ?></textarea>
                             </div>
@@ -89,10 +81,10 @@ use App\Handlers\DataHandlers;
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="customer_location">Location
+                                <label for="supplier_location">Location
                                     <small>(Optional)</small>
                                 </label>
-                                <select name="customer_location" id="customer_location" class="form-control">
+                                <select name="supplier_location" id="supplier_location" class="form-control">
                                     <option value="">--- Select Location ---</option>
                                     <?php DataHandlers::DropDownList($locations, 'reference', 'location_name', @$edit->location) ?>
                                 </select>
@@ -100,12 +92,12 @@ use App\Handlers\DataHandlers;
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="customer_group">Customer Group
+                                <label for="customer_group">Supplier Group
                                     <small>(Optional)</small>
                                 </label>
-                                <select name="customer_group" id="customer_group" class="form-control">
+                                <select name="group_id" id="group_id" class="form-control">
                                     <option value="">--- Select Group ---</option>
-                                    <?php DataHandlers::DropDownList($groups, 'reference', 'description', @$edit->customer_group) ?>
+                                    <?php DataHandlers::DropDownList($groups, 'reference', 'description', @$edit->group_id) ?>
                                 </select>
                             </div>
                         </div>
@@ -115,10 +107,10 @@ use App\Handlers\DataHandlers;
                                     <input type="checkbox" class="custom-control-input" name="AddNew"
                                            id="AddNew">
                                     <label class="custom-control-label pointer" for="AddNew">
-                                        Add Another User</label>
+                                        Add Another Supplier</label>
                                 </div>
                             </div>
-                    <input type="hidden" name="Path" value="<?php echo DASHBOARD.'/customers/list'; ?>">
+                    <input type="hidden" name="Path" value="<?php echo DASHBOARD.'/suppliers/list'; ?>">
                     <hr>
                     <div id="form-response"></div>
                     <?php if (!empty($edit->id)) { ?>

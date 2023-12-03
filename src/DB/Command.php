@@ -108,7 +108,6 @@ class Command extends Queries
 
         $sql = "INSERT INTO " . $this->dbScheme . "." . $this->table_name;
         $sql .= " (" . $this->fields . ") VALUES (" . $this->values . ");";
-
         $this->response = Queries::query($sql);
         return $this->response;
     }
@@ -132,6 +131,7 @@ class Command extends Queries
         $sql .= " SET " . $this->fields . " WHERE " . $this->pk_fields . ";";
 
         $this->response = Queries::query($sql);
+        echo $sql;
         return $this->response;
     }
 

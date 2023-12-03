@@ -49,7 +49,7 @@ abstract class Users extends Command
     {
         $cmd = new Command();
         $auth = new Auth();
-
+      
         extract($_POST);
 
         $params = [
@@ -63,6 +63,7 @@ abstract class Users extends Command
         if (empty($params['pk'])) {
             @$check = self::UserGroupList(['description' => $description, 'location' => $location]);
             if (!empty($check)) die('<div class="alert alert-danger">Group record with description exist!</div>');
+            $params['companyId'] = $_SESSION[$cmd->companyId];
             $submit = $cmd->createRecord($params);
             $action = "Create";
         } else {
@@ -74,7 +75,8 @@ abstract class Users extends Command
             'class_name' => Client::ClassName(self::class),
             'function_name' => Client::MethodNameExplode(__METHOD__),
             'action' => $action,
-            'description' => $action . 'd ' . $description . ' user group record'
+            'description' => $action . 'd ' . $description . ' user group record',
+            'companyId' => $_SESSION[$cmd->companyId]
         ]);
         echo '<div class="alert alert-success"> Record successfully saved!</div>';
         if (!empty($_POST['SetPermission'])) {
@@ -307,7 +309,8 @@ abstract class Users extends Command
         $cmd = new Command();
         $resp = [];
         $condition = [
-            'delete_status' => 0
+            'delete_status' => 0,
+            'companyId' => $_SESSION[$cmd->companyId],
         ];
         if (!empty($params)) $condition += $params;
         $data = $cmd->getRecord(
@@ -316,15 +319,16 @@ abstract class Users extends Command
                 'condition' => $condition,
                 'order' => 'description'
             ]
-        )['dataArray'];
-        if (!empty($data)) $resp = $data;
+        );
+        $resp = $data['dataArray'] ?? [];
         return $resp;
 
     }
 
     static function UserGroupName($reference = "")
     {
-        if (!empty($reference)) return self::UserGroupList(['reference' => $reference])[0]['description'];
+        $result = self::UserGroupList(['reference' => $reference]);
+        return $result[0]['description'] ?? "N/A";
     }
 
     static function User($params = []): array
@@ -332,8 +336,12 @@ abstract class Users extends Command
         $cmd = new Command();
         $resp = [];
         $condition = [
-            'delete_status' => 0
+            'delete_status' => 0,
         ];
+
+        if(isset($_SESSION[$cmd->companyId])){
+            $condition['companyId'] = $_SESSION[$cmd->companyId];
+        }
         if (!empty($params)) $condition += $params;
         $data = $cmd->getRecord(
             [

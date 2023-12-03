@@ -7,7 +7,7 @@
  */
 
 /* *
- * Users Routes
+ * customers Routes
  * */
 
 use App\Controller\Customers\Customers;

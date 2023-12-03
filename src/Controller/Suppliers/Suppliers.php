@@ -6,7 +6,7 @@
  * Time: 03:43 PM
  */
 
-namespace App\Controller\Customers;
+namespace App\Controller\Suppliers;
 
 use App\Controller\Locations\Locations;
 use App\DB\Command;
@@ -17,7 +17,7 @@ use App\SMB\Auth;
 use App\SMB\Client;
 use App\Lib\Router;
 
-abstract class Customers extends Command
+abstract class Suppliers extends Command
 {
 
     public function __construct()
@@ -25,45 +25,45 @@ abstract class Customers extends Command
         parent::__construct();
     }
 
-    static function CustomerGroupView($edit = "")
+    static function SuppliersGroupView($edit = "")
     {
+        echo "hiii";
         $reference = strtoupper(DataHandlers::generate_random_string(6));
         $arg = [
             'datatable' => 1,
             'locations' => Locations::Locations(),
-            'groups' => self::CustomerGroupList(),
+            'groups' => self::SupplierGroupList(),
             'reference' => $reference
         ];
         if (!empty($edit)) {
-            $edit = self::CustomerGroupList(['id' => $edit])[0];
-            if (!empty($edit)) $edit = DataHandlers::convertObj($edit);
+            $edit = self::SupplierGroupList(['id' => $edit])[0];
+            if (!empty($edit))
+                $edit = DataHandlers::convertObj($edit);
             $arg['reference'] = $edit->reference;
             $arg['edit'] = $edit;
         }
 
-        Rendering::RenderContent(ADMIN_VIEWS, 'Customers/group', $arg, DASHBOARD . '/customers/group');
+        Rendering::RenderContent(ADMIN_VIEWS, 'suppliers/group', $arg, DASHBOARD . '/suppliers/group');
         exit();
     }
 
-    static function PostCustomerGroup()
+    static function PostSuppliersGroup()
     {
-        echo  'from here';
-        $cmd = new Command();
+               $cmd = new Command();
         $auth = new Auth();
-
+print_r($_POST);
         extract($_POST);
-
         $params = [
-            'tbl_scheme' => $cmd->customers_group,
+            'tbl_scheme' => $cmd->suppliers_group,
             'created_by' => $auth->AuthName(),
 
         ];
         $params += $_POST;
-        unset($params['SetPermission']);
         unset($params['Path']);
         if (empty($params['pk'])) {
-            @$check = self::CustomerGroupList(['name' => $name, 'location' => $location]);
-            if (!empty($check)) die('<div class="alert alert-danger">Group record with name exist!</div>');
+            @$check = self::SupplierGroupList(['name' => $name, 'location' => $location]);
+            if (!empty($check))
+                die('<div class="alert alert-danger">Group record with name exist!</div>');
             $params['companyId'] = $_SESSION[$cmd->companyId];
             $submit = $cmd->createRecord($params);
             $action = "Create";
@@ -71,16 +71,17 @@ abstract class Customers extends Command
             $submit = $cmd->updateRecord($params);
             $action = "Update";
         }
-        if ($submit['response'] !== '200') die(Responses::displayResponse($submit));
+        if ($submit['response'] !== '200')
+            die(Responses::displayResponse($submit));
         Client::logger([
             'class_name' => Client::ClassName(self::class),
             'function_name' => Client::MethodNameExplode(__METHOD__),
             'action' => $action,
-            'description' => $action . 'd ' . $name . ' customer group record'
+            'description' => $action . 'd ' . $name . ' Supplier group record'
         ]);
         echo '<div class="alert alert-success"> Record successfully saved!</div>';
         if (!empty($_POST['SetPermission'])) {
-            $id = self::CustomerGroupList(['reference' => $reference])[0]['id'];
+            $id = self::SupplierGroupList(['reference' => $reference])[0]['id'];
             $link = $_POST['Path'] . '/permission/' . $id;
             die('<script>location.replace("' . $link . '")</script>');
         } else {
@@ -98,14 +99,15 @@ abstract class Customers extends Command
 
         $deleteRequest = $cmd->updateRecord(
             [
-                'tbl_scheme' => $cmd->customers_group,
+                'tbl_scheme' => $cmd->suppliers_group,
                 'pkField' => 'id',
                 'delete_status' => 1,
                 'pk' => $pk
             ]
         );
 
-        if ($deleteRequest['response'] !== '200') die(Responses::displayResponse($deleteRequest));
+        if ($deleteRequest['response'] !== '200')
+            die(Responses::displayResponse($deleteRequest));
         Client::logger([
             'class_name' => Client::ClassName(self::class),
             'function_name' => Client::MethodNameExplode(__METHOD__),
@@ -117,22 +119,23 @@ abstract class Customers extends Command
 
     }
 
-    static function CreateCustomersView($edit = "")
+    static function CreateSuppliersView($edit = "")
     {
         $arg = [
             'locations' => Locations::Locations(),
-            'groups' => self::CustomerGroupList()
+            'groups' => self::SupplierGroupList()
         ];
         if (!empty($edit)) {
-            $edit = self::Customer(['id' => $edit])[0];
-            if (!empty($edit)) $edit = DataHandlers::convertObj($edit);
+            $edit = self::Supplier(['id' => $edit])[0];
+            if (!empty($edit))
+                $edit = DataHandlers::convertObj($edit);
             $arg['edit'] = $edit;
         }
-        Rendering::RenderContent(ADMIN_VIEWS, 'Customers/create', $arg, DASHBOARD . '/customers/create');
+        Rendering::RenderContent(ADMIN_VIEWS, 'Suppliers/create', $arg, DASHBOARD . '/Suppliers/create');
         exit();
     }
 
-    static function PostCustomer()
+    static function PostSupplier()
     {
         $cmd = new Command();
         $auth = new Auth();
@@ -140,7 +143,7 @@ abstract class Customers extends Command
         extract($_POST);
 
         $params = [
-            'tbl_scheme' => $cmd->customers,
+            'tbl_scheme' => $cmd->Suppliers,
             'created_by' => $auth->AuthName(),
 
         ];
@@ -148,8 +151,9 @@ abstract class Customers extends Command
         $params += $_POST;
         unset($params['Path']);
         if (empty($params['pk'])) {
-            @$check = self::Customer(['username' => $username]);
-            if (!empty($check)) die('<div class="alert alert-danger">Customer already exist!</div>');
+            @$check = self::Supplier(['username' => $username]);
+            if (!empty($check))
+                die('<div class="alert alert-danger">Supplier already exist!</div>');
             $params['companyId'] = $_SESSION[$cmd->companyId];
             $submit = $cmd->createRecord($params);
             $action = "Create";
@@ -159,37 +163,38 @@ abstract class Customers extends Command
             $action = "Update";
         }
 
-        if ($submit['response'] !== '200') die(Responses::displayResponse($submit));
+        if ($submit['response'] !== '200')
+            die(Responses::displayResponse($submit));
         Client::logger([
             'class_name' => Client::ClassName(self::class),
             'function_name' => Client::MethodNameExplode(__METHOD__),
             'action' => $action,
-            'description' => $action . 'd ' . $first_name .$last_name . ' customer record'
+            'description' => $action . 'd ' . $first_name . $last_name . ' Supplier record'
         ]);
         echo '<div class="alert alert-success"> Record successfully saved!</div>';
-        if(!empty($AddNew)){
+        if (!empty($AddNew)) {
             die('<script>location.reload()</script>');
         }
         die('<script>location.replace("' . $_POST['Path'] . '")</script>');
     }
 
-    static function CustomersView()
+    static function SuppliersView()
     {
         $arg = [
             'datatable' => 1,
             'locations' => Locations::Locations(),
-            'groups' => self::CustomerGroupList(),
-            'users' => self::Customer(),
+            'groups' => self::SupplierGroupList(),
+            'users' => self::Supplier(),
         ];
 
-        Rendering::RenderContent(ADMIN_VIEWS, 'Customers/list', $arg);
+        Rendering::RenderContent(ADMIN_VIEWS, 'Suppliers/list', $arg);
         exit();
     }
 
     static function UserPermission($id = "")
     {
         $cmd = new Command();
-        $info = self::Customer(['id' => $id])[0];
+        $info = self::Supplier(['id' => $id])[0];
         $arg = [
             'type' => 'user',
             'info' => $info,
@@ -202,7 +207,7 @@ abstract class Customers extends Command
         exit();
     }
 
-    static function DeleteCustomer()
+    static function DeleteSupplier()
     {
         $cmd = new Command();
 
@@ -210,14 +215,15 @@ abstract class Customers extends Command
 
         $deleteRequest = $cmd->updateRecord(
             [
-                'tbl_scheme' => $cmd->customers,
+                'tbl_scheme' => $cmd->suppliers,
                 'pkField' => 'id',
                 'delete_status' => 1,
                 'pk' => $pk
             ]
         );
 
-        if ($deleteRequest['response'] !== '200') die(Responses::displayResponse($deleteRequest));
+        if ($deleteRequest['response'] !== '200')
+            die(Responses::displayResponse($deleteRequest));
         Client::logger([
             'class_name' => Client::ClassName(self::class),
             'function_name' => Client::MethodNameExplode(__METHOD__),
@@ -229,7 +235,7 @@ abstract class Customers extends Command
 
     }
 
-    static function CustomerGroupList($params = []): array
+    static function SupplierGroupList($params = []): array
     {
         $cmd = new Command();
         $resp = [];
@@ -237,10 +243,11 @@ abstract class Customers extends Command
             'delete_status' => 0,
             'companyId' => $_SESSION[$cmd->companyId]
         ];
-        if (!empty($params)) $condition += $params;
+        if (!empty($params))
+            $condition += $params;
         $data = $cmd->getRecord(
             [
-                'tbl_scheme' => $cmd->customers_group,
+                'tbl_scheme' => $cmd->suppliers_group,
                 'condition' => $condition,
                 'order' => 'description'
             ]
@@ -250,13 +257,13 @@ abstract class Customers extends Command
 
     }
 
-    static function CustomerGroupName($reference = "")
+    static function SupplierGroupName($reference = "")
     {
-        $result = self::CustomerGroupList(['reference' => $reference]);
+        $result = self::SupplierGroupList(['reference' => $reference]);
         return $result[0]['description'] ?? "N/A";
     }
 
-    static function Customer($params = []): array
+    static function Supplier($params = []): array
     {
         $cmd = new Command();
         $resp = [];
@@ -264,10 +271,11 @@ abstract class Customers extends Command
             'delete_status' => 0,
             'companyId' => $_SESSION[$cmd->companyId]
         ];
-        if (!empty($params)) $condition += $params;
+        if (!empty($params))
+            $condition += $params;
         $data = $cmd->getRecord(
             [
-                'tbl_scheme' => $cmd->customers,
+                'tbl_scheme' => $cmd->suppliers,
                 'condition' => $condition,
                 'order' => 'first_name ASC'
             ]

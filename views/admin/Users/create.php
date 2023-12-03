@@ -133,7 +133,7 @@ use App\Handlers\DataHandlers;
                             </button>
                         </div>
                     </div>
-                    <input type="hidden" name="Path" value="<?php echo DASHBOARD.'users/list'; ?>">
+                    <input type="hidden" name="Path" value="<?php echo DASHBOARD.'/users/list'; ?>">
                     <hr>
                     <div id="form-response"></div>
                     <?php if (!empty($edit->id)) { ?>
