@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Dauda Ibrahim
- * Date: 13/10/2023
- * Time: 03:43 PM
- */
 
 namespace App\Controller\Suppliers;
 
@@ -51,12 +45,10 @@ abstract class Suppliers extends Command
     {
                $cmd = new Command();
         $auth = new Auth();
-print_r($_POST);
         extract($_POST);
         $params = [
             'tbl_scheme' => $cmd->suppliers_group,
             'created_by' => $auth->AuthName(),
-
         ];
         $params += $_POST;
         unset($params['Path']);

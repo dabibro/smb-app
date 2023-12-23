@@ -15,6 +15,7 @@ use App\Handlers\Rendering;
 use App\Handlers\Responses;
 use App\SMB\Auth;
 use App\SMB\Client;
+use App\Utility\Constants;
 
 abstract class Users extends Command
 {
@@ -133,10 +134,15 @@ abstract class Users extends Command
 
     static function CreateUserView($edit = "")
     {
+        $reference = strtoupper(DataHandlers::generate_random_string(6));
         $arg = [
             'locations' => Locations::Locations(),
             'groups' => self::UserGroupList(),
             'types' => self::AccountTypes(),
+            'gender'=> Constants::Gender(),
+            'employmentType'=> Constants::EmploymentType(),
+            'maritalStatus'=> Constants::MaritalStatus(),
+            'reference' =>  $reference,
         ];
         if (!empty($edit)) {
             $edit = self::User(['id' => $edit])[0];
@@ -162,8 +168,18 @@ abstract class Users extends Command
 
         if (!empty($password)) $_POST['password'] = password_hash($password, PASSWORD_DEFAULT);
 
-        $params += $_POST;
 
+        $params += $_POST;
+        if (isset($params['isSoftwareUser'])) {
+            $params['isSoftwareUser'] = 1;
+        } else {
+            $params['isSoftwareUser'] = 0;
+        }
+       
+
+        $params['employment_details'] = json_encode($employment_details);
+        $params['next_of_kin'] = json_encode($next_of_kin);
+        $params['guarantor'] = json_encode($guarantor);
         unset($params['SetPermission']);
         unset($params['Path']);
         unset($params['AddNew']);
@@ -194,7 +210,8 @@ abstract class Users extends Command
             'description' => $action . 'd ' . $username . ' user record'
         ]);
         echo '<div class="alert alert-success"> Record successfully saved!</div>';
-        if (!empty($_POST['SetPermission'])) {
+        print_r($_POST);
+        if (isset($_POST['isSoftwareUser'])) {
             $id = self::User(['username' => $username])[0]['id'];
             $link = DASHBOARD . '/users/list/permission/' . $id;
             die('<script>location.replace("' . $link . '")</script>');
@@ -339,7 +356,7 @@ abstract class Users extends Command
             'delete_status' => 0,
         ];
 
-        if(isset($_SESSION[$cmd->companyId])){
+        if(isset($_SESSION[$cmd->companyId]) && !empty($_SESSION[$cmd->companyId])){
             $condition['companyId'] = $_SESSION[$cmd->companyId];
         }
         if (!empty($params)) $condition += $params;

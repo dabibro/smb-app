@@ -29,16 +29,6 @@ abstract class Locations extends Command
 
         ];
         if (!empty($params)) $condition += $params;
-        // $data = $cmd->getRecord(
-        //     [
-        //         'tbl_scheme' => $cmd->locations,
-        //         'condition' => $condition,
-        //         'order' => 'location_name ASC'
-        //     ]
-        // )['dataArray'];
-        
-        // if (!empty($data)) $resp = $data;
-        // return $resp;
         $data = $cmd->getRecord(
             [
                 'tbl_scheme' => $cmd->locations,
@@ -54,7 +44,6 @@ abstract class Locations extends Command
         }
         
         return $resp;
-        
     }
 
     static function LocationName($reference = "")

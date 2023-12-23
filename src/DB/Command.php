@@ -131,7 +131,6 @@ class Command extends Queries
         $sql .= " SET " . $this->fields . " WHERE " . $this->pk_fields . ";";
 
         $this->response = Queries::query($sql);
-        echo $sql;
         return $this->response;
     }
 
