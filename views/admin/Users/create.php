@@ -59,7 +59,7 @@ $app_permissions = $App->BuildMenus();
                                     <label for="dateOfBirth"> Date of Birth
                                     </label>
                                     <input type="date" name="employment_details[dateOfBirth]" id="dateOfBirth"
-                                           class="form-control" value="<?php echo @$edit->dateOfBirth; ?>">
+                                           class="form-control" value="<?php echo @$employment_details->dateOfBirth; ?>">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -67,7 +67,7 @@ $app_permissions = $App->BuildMenus();
                                     <label for="gender">Gender
                                     </label>
                                     <select name="employment_details[gender]" id="gender" class="form-control">
-                                        <?php DataHandlers::DropDownList($gender, 'value', 'label', @$edit->gender) ?>
+                                        <?php DataHandlers::DropDownList($gender, 'value', 'label', @$employment_details->gender) ?>
                                     </select>
                                 </div>
                             </div>
@@ -76,7 +76,7 @@ $app_permissions = $App->BuildMenus();
                                     <label for="maritalStatus">Marital Status
                                     </label>
                                     <select name="employment_details[maritalStatus]" id="maritalStatus" class="form-control">
-                                        <?php DataHandlers::DropDownList($maritalStatus, 'value', 'label', @$edit->maritalStatus) ?>
+                                        <?php DataHandlers::DropDownList($maritalStatus, 'value', 'label', @$employment_details->maritalStatus) ?>
                                     </select>
                                 </div>
                             </div>
@@ -85,7 +85,7 @@ $app_permissions = $App->BuildMenus();
                                     <label for="state">State
                                     </label>
                                     <select name="employment_details[state]" id="state" class="form-control">
-                                        <?php DataHandlers::DropDownList($locations, 'reference', 'location_name', @$edit->state) ?>
+                                        <?php DataHandlers::DropDownList($locations, 'reference', 'location_name', @$employment_details->state) ?>
                                     </select>
                                 </div>
                             </div>
@@ -94,7 +94,7 @@ $app_permissions = $App->BuildMenus();
                                     <label for="maritalStatus">LGA
                                     </label>
                                     <select name="employment_details[lga]" id="lga" class="form-control">
-                                        <?php DataHandlers::DropDownList($locations, 'reference', 'location_name', @$edit->lga) ?>
+                                        <?php DataHandlers::DropDownList($locations, 'reference', 'location_name', @$employment_details->lga) ?>
                                     </select>
                                 </div>
                             </div>
@@ -158,7 +158,7 @@ $app_permissions = $App->BuildMenus();
                                     </label>
                                     <select name="employment_details[department]" id="department" class="form-control">
                                         <option value="">--- Select Department ---</option>
-                                        <?php DataHandlers::DropDownList($locations, 'reference', 'location_name', @$edit->department) ?>
+                                        <?php DataHandlers::DropDownList($locations, 'reference', 'location_name', @$employment_details->department) ?>
                                     </select>
                                 </div>
                             </div>
@@ -169,7 +169,7 @@ $app_permissions = $App->BuildMenus();
                                     </label>
                                     <select name="employment_details[unit]" id="unit" class="form-control">
                                         <option value="">--- Select Unit ---</option>
-                                        <?php DataHandlers::DropDownList($groups, 'reference', 'description', @$edit->unit) ?>
+                                        <?php DataHandlers::DropDownList($groups, 'reference', 'description', @$employment_details->unit) ?>
                                     </select>
                                 </div>
                             </div>
@@ -179,7 +179,7 @@ $app_permissions = $App->BuildMenus();
                                         <small>(Optional)</small>
                                     </label>
                                     <input type="text" name="employment_details[designation]" id="designation" placeholder="Designation"
-                                           class="form-control" value="<?php echo @$edit->designation; ?>">
+                                           class="form-control" value="<?php echo @$employment_details->designation; ?>">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -188,7 +188,7 @@ $app_permissions = $App->BuildMenus();
                                         <small>(Optional)</small>
                                     </label>
                                     <input type="Date" name="employment_details[dateOfEmployment]" id="dateOfEmployment"
-                                           class="form-control" value="<?php echo @$edit->dateOfEmployment; ?>">
+                                           class="form-control" value="<?php echo @$employment_details->dateOfEmployment; ?>">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -197,7 +197,7 @@ $app_permissions = $App->BuildMenus();
                                         <small>(monthly)</small>
                                     </label>
                                     <input type="text" name="employment_details[basicSalary]" id="basicSalary"
-                                           class="form-control" value="<?php echo @$edit->basicSalary; ?>">
+                                           class="form-control" value="<?php echo @$employment_details->basicSalary; ?>">
                                 </div>
                             </div>
                         </div>
@@ -214,7 +214,7 @@ $app_permissions = $App->BuildMenus();
                                 <div class="form-group">
                                     <label for="nokFullName"><span class="required">*</span> Name</label>
                                     <input type="text" name="next_of_kin[FullName]" id="nokFullName" placeholder="Full Name"
-                                           class="form-control" value="<?php echo @$edit->first_name; ?>" required>
+                                           class="form-control" value="<?php echo @$next_of_kin->FullName; ?>" required>
                                     <div class="invalid-feedback">* This is a required field.</div>
                                 </div>
                             </div>
@@ -224,7 +224,7 @@ $app_permissions = $App->BuildMenus();
                                         <small>(Optional)</small>
                                     </label>
                                     <input type="text" name="next_of_kin[PhoneNumber]" id="nokPhoneNumber" placeholder="Phone Number"
-                                           class="form-control" value="<?php echo @$edit->nokPhoneNumber; ?>">
+                                           class="form-control" value="<?php echo @$next_of_kin->PhoneNumber; ?>">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -233,7 +233,7 @@ $app_permissions = $App->BuildMenus();
                                         <small>(Optional)</small>
                                     </label>
                                     <input type="email" name="next_of_kin[EmailAddress]" id="nokEmailAddress" placeholder="Email Address"
-                                           class="form-control" value="<?php echo @$edit->nokEmailAddress; ?>">
+                                           class="form-control" value="<?php echo @$next_of_kin->EmailAddress; ?>">
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -243,7 +243,7 @@ $app_permissions = $App->BuildMenus();
                                     </label>
                                     <textarea name="next_of_kin[Address]" class="form-control" id="nokAddress" rows="3"
                                               placeholder="Contact Address"
-                                              autocomplete="off"><?php echo @$edit->nokAddress; ?></textarea>
+                                              autocomplete="off"><?php echo @$next_of_kin->Address; ?></textarea>
                                 </div>
                             </div>
                         </div>
@@ -253,7 +253,7 @@ $app_permissions = $App->BuildMenus();
                                 <div class="form-group">
                                     <label for="guarantorFullName"><span class="required">*</span> Name</label>
                                     <input type="text" name="guarantor[FullName]" id="guarantorFullName" placeholder="Full Name"
-                                           class="form-control" value="<?php echo @$edit->guarantorFullName; ?>" required>
+                                           class="form-control" value="<?php echo @$guarantor->FullName; ?>" required>
                                     <div class="invalid-feedback">* This is a required field.</div>
                                 </div>
                             </div>
@@ -263,7 +263,7 @@ $app_permissions = $App->BuildMenus();
                                         <small>(Optional)</small>
                                     </label>
                                     <input type="text" name="guarantor[PhoneNumber]" id="guarantorPhoneNumber" placeholder="Phone Number"
-                                           class="form-control" value="<?php echo @$edit->guarantorPhoneNumber; ?>">
+                                           class="form-control" value="<?php echo @$guarantor->PhoneNumber; ?>">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -272,7 +272,7 @@ $app_permissions = $App->BuildMenus();
                                         <small>(Optional)</small>
                                     </label>
                                     <input type="email" name="guarantor[EmailAddress]" id="guarantorEmailAddress" placeholder="Email Address"
-                                           class="form-control" value="<?php echo @$edit->guarantorEmailAddress; ?>">
+                                           class="form-control" value="<?php echo @$guarantor->EmailAddress; ?>">
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -282,14 +282,14 @@ $app_permissions = $App->BuildMenus();
                                     </label>
                                     <textarea name="guarantor[Address]" class="form-control" id="guarantorAddress" rows="3"
                                               placeholder="Contact Address"
-                                              autocomplete="off"><?php echo @$edit->guarantorAddress; ?></textarea>
+                                              autocomplete="off"><?php echo @$guarantor->Address; ?></textarea>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-12 mb-3">
                             <div class="form-group mb-0 pt-lg-4">
                                 <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" name="isSoftwareUser"
+                                    <input type="checkbox" class="custom-control-input" name="isSoftwareUser" <?php echo  @$edit->isSoftwareUser; ?>
                                            id="isSoftwareUser" value="<?php echo @$edit->isSoftwareUser; ?>">
                                     <label class="custom-control-label pointer" for="isSoftwareUser">
                                         Allow Software access</label>

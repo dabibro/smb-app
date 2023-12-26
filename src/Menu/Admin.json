@@ -1,0 +1,17 @@
+{
+  "position": 4,
+  "label": "Admin",
+  "icon": "feather icon-admin",
+  "submenus": {
+    "department": {
+      "sub_label": "Department",
+      "icon": "feather icon-plus",
+      "roles": {},
+      "status": true
+    }
+  },
+  "status": true,
+  "inc": [
+    "department"
+  ]
+}

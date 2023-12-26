@@ -41,6 +41,7 @@ Router::get(DASHBOARD . '/logout', function () {
 require_once 'users-routes.php';
 require_once  'customer.php';
 require_once   'supplier.php';
+require_once   'admin.php';
 //require_once VIEWS . 'shared/403.html';
 exit();
 

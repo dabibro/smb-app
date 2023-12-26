@@ -19,6 +19,11 @@ abstract class DataHandlers
         return json_decode(json_encode($data));
     }
 
+    static function decodeJsonArray($data)
+    {
+     return  self::convertObj(json_decode(htmlspecialchars_decode($data), true));
+       
+    }
     static function verify_input($data)
     {
         @$data = trim($data);
