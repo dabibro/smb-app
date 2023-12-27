@@ -29,16 +29,19 @@ abstract class Admin extends Command
         $arg = [
             'datatable' => 1,
             'locations' => Locations::Locations(),
-            'groups' => $adminService->getAllDepartments(["companyId" => $_SESSION[$cmd->companyId],
-                                                          "edit" => $edit]),
+            'groups' => $adminService->getAllDepartments(["companyId" => $_SESSION[$cmd->companyId]]),
             'reference' => $reference
         ];
         if (!empty($edit)) {
-            $edit = $adminService->getAllDepartments(["companyId" => $_SESSION[$cmd->companyId],
-            "id" => $edit])[0];
-            if (!empty($edit)) $edit = DataHandlers::convertObj($edit);
-            $arg['reference'] = $edit->reference;
-            $arg['edit'] = $edit;
+            $department = $adminService->getAllDepartments([
+                "companyId" => $_SESSION[$cmd->companyId],
+                "id" => $edit
+            ])[0];
+            if (!empty($department))
+                $department = DataHandlers::convertObj($department);
+            $arg['reference'] = $department->reference;
+            $arg['edit'] = $department;
+
         }
 
         Rendering::RenderContent(ADMIN_VIEWS, '/department', $arg, DASHBOARD . '/department');
@@ -56,13 +59,38 @@ abstract class Admin extends Command
         $params += $_POST;
         $params['companyId'] = $_SESSION[$cmd->companyId];
         unset($params['Path']);
-        
+
         $adminService = new AdminService();
-        $submit = $adminService->createDepartment($params);
+        if (empty($params['pk'])) {
+            $submit = $adminService->createDepartment($params);
+        } else {
+            $submit = $adminService->updateDepartment($params);
+        }
         if ($submit['response'] !== '200') {
             die(Responses::displayResponse($submit));
         }
         echo '<div class="alert alert-success"> Record successfully saved!</div>';
         die('<script>location.reload()</script>');
+    }
+
+    static function DeleteDepartment()
+    {
+
+        $cmd = new Command();
+        $pk = base64_decode($_POST['pk']);
+        $adminService = new AdminService();
+        $deleteRequest = $adminService->updateDepartment(
+            [
+                'pkField' => 'id',
+                'delete_status' => 1,
+                'pk' => $pk,
+                'companyId' => $_SESSION[$cmd->companyId]
+            ]
+        );
+        if ($deleteRequest['response'] !== '200')
+            die(Responses::displayResponse($deleteRequest));
+        echo '<div class="alert alert-success"> Record successfully saved!</div>';
+       // die('<script>location.reload()</script>');
+
     }
 }

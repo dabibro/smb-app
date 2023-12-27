@@ -1,6 +1,7 @@
 <?php
 
 namespace App\DB;
+
 use App\Handlers\DataHandlers;
 
 class SQLQueryBuilder extends Queries
@@ -41,9 +42,9 @@ class SQLQueryBuilder extends Queries
         return $this;
     }
 
-    public function orderBy($column, $onCondition)
+    public function orderBy($column)
     {
-        $this->query .= " ORDER BY $column  $onCondition";
+        $this->query .= " ORDER BY $column";
         return $this;
     }
 
@@ -53,7 +54,7 @@ class SQLQueryBuilder extends Queries
         return $this;
     }
 
-    public function and($condition)
+    public function and ($condition)
     {
         $this->query .= " AND $condition";
         return $this;
@@ -73,19 +74,22 @@ class SQLQueryBuilder extends Queries
         $this->query = "INSERT INTO " . $this->dbScheme . "." . $table;
         $this->query .= " (" . $this->fields . ") VALUES (" . $this->values . ");";
 
-       // $this->query = "INSERT INTO $this->dbScheme.$table ($columns) VALUES ($placeholders)";
+        // $this->query = "INSERT INTO $this->dbScheme.$table ($columns) VALUES ($placeholders)";
         return $this;
     }
 
     public function update($table, $values)
     {
-        $setClause = '';
-        foreach ($values as $column => $value) {
-            $setClause .= "$column = :$column, ";
+        if (!empty($values)) {
+            foreach ($values as $field => $val):
+                if ($field != "pk" && $field != "pkField")
+                    $this->fields .= $field . " = '" . DataHandlers::verify_input($val) . "'" . ', ';
+            endforeach;
+            $this->fields = rtrim($this->fields, ", ");
+            $pk_fields = $values['pkField'] . "='" . $values['pk'] . "'";
         }
-        $setClause = rtrim($setClause, ', ');
-
-        $this->query = "UPDATE $table SET $setClause";
+        $this->query = "UPDATE " . $this->dbScheme . "." . $table;
+        $this->query .= " SET " . $this->fields . " WHERE " . $pk_fields;
         return $this;
     }
 
@@ -97,8 +101,14 @@ class SQLQueryBuilder extends Queries
 
     public function getQuery()
     {
-       echo $this->query;
-       return Queries::query($this->query.PHP_EOL); 
+        $this->query .= ";";
+        return Queries::query($this->query . PHP_EOL);
+    }
+
+    public function getQueryArray()
+    {
+        $this->query .= ";";
+        return Queries::getArray($this->query . PHP_EOL);
     }
 }
 

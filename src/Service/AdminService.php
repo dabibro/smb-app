@@ -17,13 +17,27 @@ class AdminService
 
     public function createDepartment(array $data)
     {
+        $department = $this->adminRepo->createDepartment($data);
+          
+        if ($department['response'] !== '200') {
+            Client::logger([
+                'class_name' => Client::ClassName(self::class),
+                'function_name' => Client::MethodNameExplode(__METHOD__),
+                'action' => 'create',
+                'description' => 'created department record',
+                'companyId' => $data['companyId']
+            ]);
+        }
+        return $department;
         if (empty($data['pk'])) {
+            $department = $this->adminRepo->createDepartment($data);
             $action = "Create";
         } else {
+            $department = $this->adminRepo->updateDepartment($data);
             $action = "Update";
         }
 
-        $department = $this->adminRepo->createDepartment($data);
+       
 
         if ($department['response'] !== '200') {
             Client::logger([
@@ -37,9 +51,27 @@ class AdminService
         return $department;
     }
 
-    public function getAllDepartments($params = [])
+    public function updateDepartment(array $data)
     {
-        return $this->adminRepo->getAllDepartments($params);
+         $department = $this->adminRepo->updateDepartment($data);
+          
+        if ($department['response'] !== '200') {
+            Client::logger([
+                'class_name' => Client::ClassName(self::class),
+                'function_name' => Client::MethodNameExplode(__METHOD__),
+                'action' => 'update',
+                'description' => 'updated department record',
+                'companyId' => $data['companyId']
+            ]);
+        }
+        return $department;
+    }
+
+    public function getAllDepartments($params = []): array
+    {
+        $departments = $this->adminRepo->getAllDepartments($params);
+        $result = $departments['dataArray'] ?? [];
+        return $result;
     }
 
 }

@@ -8,7 +8,7 @@ use App\Handlers\DataHandlers;
     <div class="col-md-4">
         <div class="card box-shadow-1">
             <div class="card-header pb-3">
-                <h5 class="card-title"><i class="feather icon-edit mr-1"></i> Create Group</h5>
+                <h5 class="card-title"><i class="feather icon-edit mr-1"></i> Create Department</h5>
             </div>
             <form class="app-form" action="<?php echo $path; ?>" method="post" id="department">
                 <div class="card-body">
@@ -39,7 +39,7 @@ use App\Handlers\DataHandlers;
                                 <label for=""><span class="required">*</span> Name</label>
                                 <input type="text" name="name" class="form-control" required
                                        placeholder="Name"
-                                       value="<?php echo @$edit->description; ?>">
+                                       value="<?php echo @$edit->name; ?>">
                                 <div class="invalid-feedback">* This is a required field.</div>
                             </div>
                         </div>

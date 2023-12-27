@@ -11,4 +11,11 @@ Router::get(DASHBOARD . '/admin/department', function () {
 Router::post(DASHBOARD . '/department', function () {
     Admin::PostDepartment();
 });
+
+Router::get(DASHBOARD . '/department/edit/([0-9]*)', function (Request $request, Response $response) {
+    Admin::DepartmentView($request->params[0]);
+});
+Router::post(DASHBOARD . '/department/delete', function () {
+    Admin::DeleteDepartment();
+});
 ?>

@@ -8,16 +8,25 @@ class AdminRepository extends SQLQueryBuilder
         return $this->insert($this->department, $data)
         ->getQuery();
     }  
-    
-    public function getAllDepartments($params = [])
+
+    public function updateDepartment(array $params)
     {
         $companyId = $params["companyId"];
-        $sql = $this->select()->from($this->department)->where("companyId = '$companyId'");
-        if(isset($params["edit"]) && !empty(trim($params["edit"]))){
-            $id = $params["edit"];
-            $sql->and("id = $id");
+        unset($params["companyId"]);
+        $query = $this->update($this->department, $params);
+        return $query->and("companyId = '$companyId'")
+        ->getQuery();
+    }  
+    
+    public function getAllDepartments($params = []): array
+    {
+        $companyId = $params["companyId"];
+        $query = $this->select()->from($this->department)->where("companyId = '$companyId'");
+        if(isset($params["id"]) && !empty(trim($params["id"]))){
+            $id = $params["id"];
+            $query->and("id = $id");
         }
-        return $sql->getQuery();
+        return $query->and("delete_status = 0")->orderBy("id")->getQueryArray();
     }  
 }
 ?>
