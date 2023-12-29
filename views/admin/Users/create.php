@@ -158,7 +158,7 @@ $app_permissions = $App->BuildMenus();
                                     </label>
                                     <select name="employment_details[department]" id="department" class="form-control">
                                         <option value="">--- Select Department ---</option>
-                                        <?php DataHandlers::DropDownList($locations, 'reference', 'location_name', @$employment_details->department) ?>
+                                        <?php DataHandlers::DropDownList($departments, 'reference', 'name', @$employment_details->department) ?>
                                     </select>
                                 </div>
                             </div>
@@ -167,10 +167,7 @@ $app_permissions = $App->BuildMenus();
                                     <label for="group">Unit/Section
                                         <small>(Optional)</small>
                                     </label>
-                                    <select name="employment_details[unit]" id="unit" class="form-control">
-                                        <option value="">--- Select Unit ---</option>
-                                        <?php DataHandlers::DropDownList($groups, 'reference', 'description', @$employment_details->unit) ?>
-                                    </select>
+                                    <input type="text" name="employment_details[unit]" id="unit" class="form-control" value="<?php echo @$employment_details->unit; ?>">
                                 </div>
                             </div>
                             <div class="col-md-6">

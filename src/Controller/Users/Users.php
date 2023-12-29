@@ -16,6 +16,7 @@ use App\Handlers\Responses;
 use App\SMB\Auth;
 use App\SMB\Client;
 use App\Utility\Constants;
+use App\Service\AdminService;
 
 abstract class Users extends Command
 {
@@ -134,6 +135,8 @@ abstract class Users extends Command
 
     static function CreateUserView($edit = "")
     {
+        $adminService = new AdminService();
+        $cmd = new Command();
         $reference = strtoupper(DataHandlers::generate_random_string(6));
         $arg = [
             'locations' => Locations::Locations(),
@@ -143,6 +146,7 @@ abstract class Users extends Command
             'employmentType'=> Constants::EmploymentType(),
             'maritalStatus'=> Constants::MaritalStatus(),
             'reference' =>  $reference,
+            'departments' => $adminService->getAllDepartments(['companyId'=> $_SESSION[$cmd->companyId]]),
         ];
         if (!empty($edit)) {
             $edit = self::User(['id' => $edit])[0];
@@ -313,11 +317,11 @@ abstract class Users extends Command
     static function AccountTypes($type = "", $name = 0)
     {
         $types = [
-            0 => [
+            1 => [
                 'code' => '1',
                 'description' => 'Administrator'
             ],
-            1 => [
+            2 => [
                 "code" => '2',
                 'description' => 'Standard',
             ]
