@@ -13,15 +13,23 @@ use App\Handlers\DataHandlers;
                 <form class="app-form" action="<?php echo $path; ?>" method="post" id="user-group">
                     <h5 class="mb-3">Information</h5>
                     <div class="row">
-                        <div class="col-md-4">
+                    <div class="col-md-6">
                             <div class="form-group">
-                                <label for="supplier_name"><span class="required">*</span> Supplier Name</label>
-                                <input type="text" name="supplier_name" id="supplier_name" placeholder="Name"
-                                       class="form-control" value="<?php echo @$edit->supplier_name; ?>" required>
+                                <label for="supplier_name"><span class="required">*</span> Supplier Reference</label>
+                                <input type="text" name="reference" id="reference" 
+                                       class="form-control" value="<?php echo @$reference; ?>" required>
                                 <div class="invalid-feedback">* This is a required field.</div>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="supplier_name"><span class="required">*</span> Supplier Name</label>
+                                <input type="text" name="name" id="supplier_name" placeholder="Name"
+                                       class="form-control" value="<?php echo @$edit->name; ?>" required>
+                                <div class="invalid-feedback">* This is a required field.</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label for="email_address"> Email Address
                                     <small>(Optional)</small>
@@ -30,7 +38,7 @@ use App\Handlers\DataHandlers;
                                        class="form-control" value="<?php echo @$edit->email_address; ?>">
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label for="phone_number"> Phone Number
                                     <small>(Optional)</small>
@@ -84,7 +92,7 @@ use App\Handlers\DataHandlers;
                                 <label for="supplier_location">Location
                                     <small>(Optional)</small>
                                 </label>
-                                <select name="supplier_location" id="supplier_location" class="form-control">
+                                <select name="location" id="supplier_location" class="form-control">
                                     <option value="">--- Select Location ---</option>
                                     <?php DataHandlers::DropDownList($locations, 'reference', 'location_name', @$edit->location) ?>
                                 </select>
@@ -95,9 +103,9 @@ use App\Handlers\DataHandlers;
                                 <label for="customer_group">Supplier Group
                                     <small>(Optional)</small>
                                 </label>
-                                <select name="group_id" id="group_id" class="form-control">
+                                <select name="supplierGroup" id="group_id" class="form-control">
                                     <option value="">--- Select Group ---</option>
-                                    <?php DataHandlers::DropDownList($groups, 'reference', 'description', @$edit->group_id) ?>
+                                    <?php DataHandlers::DropDownList($groups, 'reference', 'description', @$edit->supplierGroup) ?>
                                 </select>
                             </div>
                         </div>

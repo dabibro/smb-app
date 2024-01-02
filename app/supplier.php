@@ -39,15 +39,15 @@ Router::post(DASHBOARD . '/suppliers/create', function () {
     Suppliers::PostSupplier();
 });
 
-Router::get(DASHBOARD . '/Suppliers/list', function () {
+Router::get(DASHBOARD . '/suppliers/list', function () {
     Suppliers::SuppliersView();
 });
 
-Router::get(DASHBOARD . '/Suppliers/list/edit/([0-9]*)', function (Request $request, Response $response) {
+Router::get(DASHBOARD . '/suppliers/list/edit/([0-9]*)', function (Request $request, Response $response) {
     Suppliers::CreateSuppliersView($request->params[0]);
 });
 
-Router::post(DASHBOARD . '/Suppliers/list/delete', function () {
+Router::post(DASHBOARD . '/suppliers/list/delete', function () {
     Suppliers::DeleteSupplier();
 });
 

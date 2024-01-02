@@ -7,6 +7,7 @@ use App\DB\Command;
 use App\Handlers\DataHandlers;
 use App\Handlers\Rendering;
 use App\Handlers\Responses;
+use App\Service\SupplierService;
 use App\SMB\Auth;
 use App\SMB\Client;
 use App\Lib\Router;
@@ -21,7 +22,6 @@ abstract class Suppliers extends Command
 
     static function SuppliersGroupView($edit = "")
     {
-        echo "hiii";
         $reference = strtoupper(DataHandlers::generate_random_string(6));
         $arg = [
             'datatable' => 1,
@@ -113,17 +113,22 @@ abstract class Suppliers extends Command
 
     static function CreateSuppliersView($edit = "")
     {
+        $cmd = new Command();
+        $supplierService = new SupplierService();
+        $reference = strtoupper(DataHandlers::generate_random_string(6));
         $arg = [
             'locations' => Locations::Locations(),
-            'groups' => self::SupplierGroupList()
+            'groups' => self::SupplierGroupList(),
+            'reference'=> $reference,
         ];
         if (!empty($edit)) {
-            $edit = self::Supplier(['id' => $edit])[0];
+            $edit = $supplierService->getAllSuppliers(['id'=> $edit, 'companyId'=> $_SESSION[$cmd->companyId]])[0];
             if (!empty($edit))
                 $edit = DataHandlers::convertObj($edit);
             $arg['edit'] = $edit;
+            $arg['reference'] = $edit->reference;
         }
-        Rendering::RenderContent(ADMIN_VIEWS, 'Suppliers/create', $arg, DASHBOARD . '/Suppliers/create');
+        Rendering::RenderContent(ADMIN_VIEWS, 'suppliers/create', $arg, DASHBOARD . '/suppliers/create');
         exit();
     }
 
@@ -133,9 +138,10 @@ abstract class Suppliers extends Command
         $auth = new Auth();
 
         extract($_POST);
+        
 
         $params = [
-            'tbl_scheme' => $cmd->Suppliers,
+            'tbl_scheme' => $cmd->suppliers,
             'created_by' => $auth->AuthName(),
 
         ];
@@ -151,7 +157,7 @@ abstract class Suppliers extends Command
             $action = "Create";
         } else {
             $submit = $cmd->updateRecord($params);
-            $_POST['Path'] = DASHBOARD . '/users/list/edit/' . $pk;
+            $_POST['Path'] = DASHBOARD . '/users/suppliers/edit/' . $pk;
             $action = "Update";
         }
 
@@ -167,37 +173,26 @@ abstract class Suppliers extends Command
         if (!empty($AddNew)) {
             die('<script>location.reload()</script>');
         }
-        die('<script>location.replace("' . $_POST['Path'] . '")</script>');
+        die('<script>location.replace("/admin/suppliers/list")</script>');
     }
 
     static function SuppliersView()
     {
+        $supplierService = new SupplierService();
+        $cmd = new Command();
         $arg = [
             'datatable' => 1,
             'locations' => Locations::Locations(),
             'groups' => self::SupplierGroupList(),
-            'users' => self::Supplier(),
+            'suppliers' => $supplierService->getAllSuppliers( [
+                
+                'companyId' => $_SESSION[$cmd->companyId]
+            ])
         ];
-
         Rendering::RenderContent(ADMIN_VIEWS, 'Suppliers/list', $arg);
         exit();
     }
 
-    static function UserPermission($id = "")
-    {
-        $cmd = new Command();
-        $info = self::Supplier(['id' => $id])[0];
-        $arg = [
-            'type' => 'user',
-            'info' => $info,
-            'permission' => json_decode(htmlspecialchars_decode($info['permission']), true),
-            'pkField' => 'id',
-            'pk' => $id,
-            'tbl_scheme' => $cmd->users,
-        ];
-        Rendering::RenderContent(ADMIN_VIEWS, 'Users/permission', $arg, DASHBOARD . '/users/list');
-        exit();
-    }
 
     static function DeleteSupplier()
     {

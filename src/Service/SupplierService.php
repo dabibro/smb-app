@@ -4,53 +4,53 @@ namespace App\Service;
 
 use App\DB\Command;
 use App\Repository\AdminRepository;
+use App\Repository\SupplierRepository;
 use App\SMB\Auth;
 use App\SMB\Client;
 
-class AdminService
+class SupplierService
 {
-    protected $adminRepo;
+    protected $supplierRepo;
     public function __construct()
     {
-        $this->adminRepo = new AdminRepository();
+        $this->supplierRepo = new SupplierRepository();
     }
 
-    public function createDepartment(array $data)
+    public function createSupplier(array $data)
     {
-        $department = $this->adminRepo->createDepartment($data);
-          
-        if ($department['response'] !== '200') {
+        $result = $this->supplierRepo->create($data);
+        if ($result['response'] !== '200') {
             Client::logger([
                 'class_name' => Client::ClassName(self::class),
                 'function_name' => Client::MethodNameExplode(__METHOD__),
                 'action' => "create",
-                'description' => 'created department record',
+                'description' => 'created supplier record',
                 'companyId' => $data['companyId']
             ]);
         }
-        return $department;
+        return $result;
     }
 
-    public function updateDepartment(array $data)
+    public function updateSupplier(array $data)
     {
-         $department = $this->adminRepo->updateDepartment($data);
+         $result = $this->supplierRepo->updateSupplier($data);
           
-        if ($department['response'] !== '200') {
+        if ($result['response'] !== '200') {
             Client::logger([
                 'class_name' => Client::ClassName(self::class),
                 'function_name' => Client::MethodNameExplode(__METHOD__),
                 'action' => 'update',
-                'description' => 'updated department record',
+                'description' => 'updated supplier record',
                 'companyId' => $data['companyId']
             ]);
         }
-        return $department;
+        return $result;
     }
 
-    public function getAllDepartments($params = []): array
+    public function getAllSuppliers($params = []): array
     {
-        $departments = $this->adminRepo->getAllDepartments($params);
-        $result = $departments['dataArray'] ?? [];
+        $suppliers = $this->supplierRepo->get($params);
+        $result = $suppliers['dataArray'] ?? [];
         return $result;
     }
 
