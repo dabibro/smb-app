@@ -17,3 +17,4 @@
 <?php endif; ?>
 <script src="<?php echo APP_ASSETS; ?>js/bootstrap.validator.js"></script>
 <script src="<?php echo APP_ASSETS ?>js/scripts.js" type="text/javascript"></script>
+<script src="<?php echo APP_ASSETS ?>js/global.js" type="text/javascript"></script>

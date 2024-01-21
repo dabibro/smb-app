@@ -22,6 +22,7 @@ class DBTables
     protected $suppliers;
     protected $suppliers_group;
     protected $department;
+    protected $productCategories;
 
     protected $logger;
 
@@ -39,6 +40,7 @@ class DBTables
         $this->suppliers = 'suppliers';
         $this->suppliers_group = 'suppliers_group';
         $this->department = 'departments';
+        $this->productCategories = 'product_categories';
 
     }
 }

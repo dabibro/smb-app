@@ -18,4 +18,9 @@ Router::get(DASHBOARD . '/department/edit/([0-9]*)', function (Request $request,
 Router::post(DASHBOARD . '/department/delete', function () {
     Admin::DeleteDepartment();
 });
+
+Router::post(DASHBOARD . '/global', function () {
+    Admin::GlobalRequest();
+});
+
 ?>

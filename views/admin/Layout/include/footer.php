@@ -9,3 +9,7 @@
         </span>
     </p>
 </footer>
+<script>
+    let webroot = '<?php echo WEB_ROOT; ?>admin/';
+    let ajax_path = webroot;// + "ajax/";
+</script>

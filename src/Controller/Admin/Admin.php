@@ -90,7 +90,33 @@ abstract class Admin extends Command
         if ($deleteRequest['response'] !== '200')
             die(Responses::displayResponse($deleteRequest));
         echo '<div class="alert alert-success"> Record successfully saved!</div>';
-       // die('<script>location.reload()</script>');
+        // die('<script>location.reload()</script>');
 
+    }
+
+    static function GlobalRequest()
+    {
+        $requestMethod = $_SERVER['REQUEST_METHOD'];
+        if (in_array($requestMethod, ["GET", "POST"])) {
+
+            $post = array();
+            $post = $_POST;
+
+            if (!empty($post['states_locals'])) {
+                extract($post);
+                $states = DataHandlers::StatesList();
+                if (!empty($states)) {
+                    foreach ($states as $list) {
+                        if ($list['state'] === $state) {
+                            echo '<option value=""> -- Select --</option>';
+                            foreach ($list['lgas'] as $lgas) {
+                                echo DataHandlers::DropDownOptions($lgas, $lgas);
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
     }
 }

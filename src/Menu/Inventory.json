@@ -1,0 +1,99 @@
+{
+    "position": 3,
+    "label": "Inventory",
+    "icon": "fal fa-inventory",
+    "submenus": {
+      "category": {
+        "sub_label": "Add Category",
+        "icon": "fal fa-product",
+        "roles": {
+        },
+        "status": true
+      },
+      "addproduct": {
+        "sub_label": "Add Product",
+        "icon": "fal fa-product",
+        "roles": {
+        },
+        "status": true
+      },
+      "instantstocking": {
+        "sub_label": "Instant Stocking",
+        "icon": "fal fa-product",
+        "roles": {
+        },
+        "status": true
+      },
+      "addstorage": {
+        "sub_label": "Add Storage",
+        "icon": "fal fa-product",
+        "roles": {
+        },
+        "status": true
+      },
+      "addmeasurementunit": {
+        "sub_label": "Add Measurement Unit",
+        "icon": "fal fa-product",
+        "roles": {
+        },
+        "status": true
+      },
+      "transfer": {
+        "sub_label": "Transfer Product",
+        "icon": "fal fa-product",
+        "roles": {
+        },
+        "status": true
+      },
+      "import": {
+        "sub_label": "Import From CSV",
+        "icon": "fal fa-folder-open",
+        "roles": {
+          "create_customer_group": {
+            "icon": "fal fa-plus",
+            "label": "Create Group"
+          },
+          "edit_customer_group": {
+            "icon": "fal fa-pen",
+            "label": "Edit Record"
+          },
+          "delete_customer_group": {
+            "icon": "fal fa-trash-alt",
+            "label": "Delete Record"
+          }
+        },
+        "status": true
+      },
+      "list": {
+        "sub_label": "List",
+        "icon": "fal fa-user-friends",
+        "roles": {
+          "create_customer": {
+            "icon": "fal fa-plus",
+            "label": "Create Account"
+          },
+          "edit_customer": {
+            "icon": "fal fa-pen",
+            "label": "Edit Record"
+          },
+          "delete_customer": {
+            "icon": "fal fa-trash-alt",
+            "label": "Delete Record"
+          }
+        },
+        "status": true
+      }
+    },
+    "status": true,
+    "inc": [
+      "category",
+      "addproduct",
+      "instantstocking",
+      "transfer",
+      "addstorage",
+      "addmeasurementunit",
+      "group",
+      "import",
+      "list"
+    ]
+  }

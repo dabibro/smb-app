@@ -2,5 +2,6 @@
   "Users": 0,
   "Customers": 1,
   "Locations": 2,
-  "Suppliers": 3
+  "Suppliers": 3,
+  "Inventory":4
 }

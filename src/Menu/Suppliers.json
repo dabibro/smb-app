@@ -1,7 +1,7 @@
 {
     "position": 3,
     "label": "Suppliers",
-    "icon": "feather icon-users",
+    "icon": "fal fa-supplier",
     "submenus": {
       "create": {
         "sub_label": "Create",

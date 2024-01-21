@@ -9,9 +9,9 @@
 namespace App\Utility;
 
 
+use App\Handlers\FileHandler;
 
-
-abstract class Constants 
+abstract class Constants
 {
 
 
@@ -21,55 +21,55 @@ abstract class Constants
      */
     static function Gender(): array
     {
-        
-        $resp =
-        [
-             [
-                "label" => "MALE",
-                "value" => "male",
-            ],
-            [
-                "label" => "FEMALE",
-                "value" => "female",
-            ],
 
-        ];
+        $resp =
+            [
+                [
+                    "label" => "MALE",
+                    "value" => "male",
+                ],
+                [
+                    "label" => "FEMALE",
+                    "value" => "female",
+                ],
+
+            ];
         return $resp;
     }
 
     static function MaritalStatus(): array
     {
-        
-        $resp =
-        [
-             [
-                "label" => "SINGLE",
-                "value" => "single",
-            ],
-            [
-                "label" => "MARRIED",
-                "value" => "married",
-            ],
 
-        ];
+        $resp =
+            [
+                [
+                    "label" => "SINGLE",
+                    "value" => "single",
+                ],
+                [
+                    "label" => "MARRIED",
+                    "value" => "married",
+                ],
+
+            ];
         return $resp;
     }
 
     static function EmploymentType(): array
     {
-        
-        $resp =
-        [
-             [
-                "label" => "FULL TIME",
-                "value" => "fulltime",
-            ],
-            [
-                "label" => "CONTRACT",
-                "value" => "contract",
-            ],
 
-        ];
+        $resp =
+            [
+                [
+                    "label" => "FULL TIME",
+                    "value" => "fulltime",
+                ],
+                [
+                    "label" => "CONTRACT",
+                    "value" => "contract",
+                ],
+
+            ];
         return $resp;
     }
 }

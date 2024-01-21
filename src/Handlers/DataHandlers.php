@@ -8,6 +8,7 @@
 
 namespace App\Handlers;
 
+use App\Handlers\FileHandler;
 
 abstract class DataHandlers
 {
@@ -21,9 +22,10 @@ abstract class DataHandlers
 
     static function decodeJsonArray($data)
     {
-     return  self::convertObj(json_decode(htmlspecialchars_decode($data), true));
-       
+        return self::convertObj(json_decode(htmlspecialchars_decode($data), true));
+
     }
+
     static function verify_input($data)
     {
         @$data = trim($data);
@@ -73,14 +75,23 @@ abstract class DataHandlers
     {
         if (!empty($key)) {
             if (!empty($label)) {
-                if (!empty($selected)) if ($selected === $key) $DropDownSelect = " selected";
-                $DropDownList = "<option value='" . $key . "' " . $DropDownSelect . ">" . $label . "</option>";
+                if (!empty($selected)) if ($selected === $key) @$DropDownSelect = " selected";
+                $DropDownList = "<option value='" . $key . "' " . @$DropDownSelect . ">" . $label . "</option>";
             } else {
                 if ($selected === $key) $DropDownSelect = " selected";
-                $DropDownList = "<option value='" . $key . "' " . $DropDownSelect . " >" . $key . "</option>";
+                $DropDownList = "<option value='" . $key . "' " . @$DropDownSelect . " >" . $key . "</option>";
             }
             return $DropDownList;
         }
     }
 
+
+    static function StatesList()
+    {
+        $file_handler = new FileHandler();
+        $json = 'JsonFiles/states-locals.json';
+        $states = $file_handler->JsonReader($json);
+        $states = json_decode(json_encode($states), true);
+        return ($states);
+    }
 }

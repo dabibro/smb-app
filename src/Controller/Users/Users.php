@@ -159,7 +159,6 @@ abstract class Users extends Command
             { $employment_details = DataHandlers::decodeJsonArray($edit->employment_details);
            $arg['employment_details'] = $employment_details;
         }
-
             if (!is_null($edit->guarantor) && !empty($edit->guarantor))
             { $guarantor = DataHandlers::decodeJsonArray($edit->guarantor);
             $arg['guarantor'] = $guarantor;}
