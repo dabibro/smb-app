@@ -1,14 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Dauda Ibrahim
- * Date: 18/10/2023
- * Time: 08:41 PM
- */
-
-/* *
- * suppliers Routes
- * */
 
 use App\Controller\Suppliers\Suppliers;
 use App\Lib\Router;

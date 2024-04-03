@@ -72,4 +72,22 @@ abstract class Constants
             ];
         return $resp;
     }
+
+    static function ProductType(): array
+    {
+
+        $resp =
+            [
+                [
+                    "label" => "PRODUCT",
+                    "value" => "product",
+                ],
+                [
+                    "label" => "SERVICE",
+                    "value" => "service",
+                ],
+
+            ];
+        return $resp;
+    }
 }

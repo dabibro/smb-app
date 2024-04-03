@@ -4,14 +4,14 @@
     "icon": "fal fa-inventory",
     "submenus": {
       "category": {
-        "sub_label": "Add Category",
+        "sub_label": "Category",
         "icon": "fal fa-product",
         "roles": {
         },
         "status": true
       },
-      "addproduct": {
-        "sub_label": "Add Product",
+      "product": {
+        "sub_label": "Product",
         "icon": "fal fa-product",
         "roles": {
         },
@@ -24,15 +24,15 @@
         },
         "status": true
       },
-      "addstorage": {
-        "sub_label": "Add Storage",
+      "storage": {
+        "sub_label": "Storage",
         "icon": "fal fa-product",
         "roles": {
         },
         "status": true
       },
-      "addmeasurementunit": {
-        "sub_label": "Add Measurement Unit",
+      "measurementunit": {
+        "sub_label": "Measurement Unit",
         "icon": "fal fa-product",
         "roles": {
         },
@@ -65,7 +65,7 @@
         "status": true
       },
       "list": {
-        "sub_label": "List",
+        "sub_label": "Product List",
         "icon": "fal fa-user-friends",
         "roles": {
           "create_customer": {
@@ -87,13 +87,14 @@
     "status": true,
     "inc": [
       "category",
-      "addproduct",
+      "product",
+      "list",
       "instantstocking",
       "transfer",
-      "addstorage",
-      "addmeasurementunit",
+      "storage",
+      "measurementunit",
       "group",
-      "import",
-      "list"
+      "import"
+      
     ]
   }

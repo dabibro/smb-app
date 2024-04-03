@@ -12,6 +12,7 @@ namespace App\DB;
 class DBTables
 {
     public $companyId;
+    public $currency;
     protected $config;
     protected $locations;
     protected $users_group;
@@ -23,6 +24,10 @@ class DBTables
     protected $suppliers_group;
     protected $department;
     protected $productCategories;
+    protected $storages;
+    protected $units;
+    protected $inventory;
+
 
     protected $logger;
 
@@ -41,6 +46,10 @@ class DBTables
         $this->suppliers_group = 'suppliers_group';
         $this->department = 'departments';
         $this->productCategories = 'product_categories';
+        $this->storages = 'storages';
+        $this->units = 'measurement_units';
+        $this->currency = 'currency';
+        $this->inventory = 'inventory';
 
     }
 }
